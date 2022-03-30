@@ -18,5 +18,15 @@ describe('Recipe model', () => {
         Recipe.create({ name: 'Milanesa a la napolitana' });
       });
     });
+    describe('dishSummary', () => {
+      it('should throw an error if dishSummary is null', (done) => {
+        Recipe.create({})
+          .then(() => done(new Error('It requires a valid dishSummary')))
+          .catch(() => done());
+      });
+      it('should work when its a valid dishSummary', () => {
+        Recipe.create({ dishSummary: 'Una milanesa recubierta con salsa de tomate y queso mozzarella.' });
+      });
+    });
   });
 });
