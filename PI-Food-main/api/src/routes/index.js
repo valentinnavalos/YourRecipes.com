@@ -8,7 +8,7 @@ const recipeRoute = require("./recipe");
 const router = Router();
 
 router.use("/recipe", recipeRoute);
-router.use("/recipes", recipeRoute);
+router.use("/recipes", recipesRoute);
 router.use("/types", typesRoute);
 
 // Configurar los routers
