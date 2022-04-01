@@ -3,53 +3,47 @@ const { Type } = require("./../db");
 const router = Router();
 
 router.get("/", async (req, res, next) => {
-  // Obtener todos los tipos de dietas posibles.
-  // En una primera instancia, cuando no exista ninguno,
-  //deberán precargar la base de datos con los tipos de
-  //datos indicados por spoonacular en el link del readme.
-
   try {
-    let dietas;
-    let dietsNames = [
-      "Gluten Free",
+    //PSEUDOCODIGO.
+    //esta ruta se va a ejecutar cuando querramos traer (GET) los tipos de dietas
+    //PERO, si a priori no hay nada hay que precargar con todas los tipos de dietas.
+
+    //APROXIMACIÓN.
+    //deberiamos usar un findOrCreated() para que en caso de que no existan las dietas
+    //(primer caso) las cree, y para que en caso de que existan... las findee (encuentre)
+    //para ser devueltas como un find() normal.
+
+    const dietsNames = [
+      //en diets: []
+      "Gluten Free", //
       "Ketogenic",
-      "Vegetarian",
+      "Vegetarian", //
       "Lacto-Vegetarian",
       "Ovo-Vegetarian",
-      "Vegan",
+      "Vegan", //
       "Pescetarian",
       "Paleo",
       "Primal",
       "Low FODMAP",
     ];
 
-    dietas = await Type.findAll();
+    let result = dietsNames.filter(async (d) => {
+      const [type, created] = await Type.findOrCreate({
+        where: {
+          name: d,
+        },
+        defaults: {
+          name: d,
+        },
+      });
+      // console.log(created);
+      return type;
+    });
 
-    if (dietas.length) res.json(dietas);
-    else {
-      dietsNames.map(async (d) => {
-        await Type.create({name: d})
-      })
-      res.json(dietas)
-    }
+    res.json(result);
   } catch (error) {
     next(error);
   }
-
-  // return Type.findAll().then((tip) => res.send(tip));
-  // res.send("Soy get /types");
 });
-
-// router.post("/", (req, res, next) => {
-//   res.send("Soy post /types");
-// });
-
-// router.put("/", (req, res, next) => {
-//   res.send("Soy put /types");
-// });
-
-// router.delete("/", (req, res, next) => {
-//   res.send("Soy delete /types");
-// });
 
 module.exports = router;

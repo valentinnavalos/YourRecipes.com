@@ -1,4 +1,4 @@
-require("dotenv").config(); // config de las vbles de entorno
+require("dotenv").config();
 const { Sequelize } = require("sequelize");
 const fs = require("fs");
 const path = require("path");
