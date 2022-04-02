@@ -8,39 +8,64 @@ module.exports = (sequelize) => {
       defaultValue: DataTypes.UUIDV4,
       allowNull: false,
       primaryKey: true,
-      // validate: {
-      //   isUUID: 4,
-      // },
     },
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   isAlpha: true,
-      // },
+      validate: {
+        notEmpty: {
+          args: [true],
+          msg: "It do not be an empty string.",
+        },
+      },
     },
     summary: {
       type: DataTypes.TEXT,
       allowNull: false,
+      validate: {
+        notEmpty: {
+          args: [true],
+          msg: "It do not be an empty string.",
+        },
+      },
     },
     spoonacularScore: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       validate: {
-        isFloat: true,
-        max: 100,
-        min: 0,
+        isDecimal: {
+          args: [true],
+          msg: "It must be a decimal number.",
+        },
+        max: {
+          args: [100],
+          msg: "It do not be more than 100.",
+        },
+        min: {
+          args: [0],
+          msg: "It must be a possitive value.",
+        },
       },
     },
     healthScore: {
-      type: DataTypes.FLOAT,
+      type: DataTypes.DECIMAL,
       validate: {
-        isFloat: true,
-        max: 100,
-        min: 0,
+        isDecimal: {
+          args: [true],
+          msg: "It must be a decimal number.",
+        },
+        max: {
+          args: [100],
+          msg: "It do not be more than 100.",
+        },
+        min: {
+          args: [0],
+          msg: "It must be a possitive value.",
+        },
       },
     },
     steps: {
-      type: DataTypes.TEXT,
+      type: DataTypes.STRING,
+      // type: DataTypes.ARRAY(DataTypes.STRING),
     },
   });
 };

@@ -7,9 +7,12 @@ module.exports = (sequelize) => {
     {
       name: {
         type: DataTypes.TEXT,
-        // validate: {
-        //   isAlpha: true,
-        // },
+        validate: {
+          notEmpty: {
+            args: [true],
+            msg: "It do not be an empty string.",
+          },
+        },
       },
     },
     { timestamps: false }
