@@ -12,6 +12,7 @@ module.exports = (sequelize) => {
             args: [true],
             msg: "It do not be an empty string.",
           },
+          unique: true,
         },
       },
     },
