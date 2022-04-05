@@ -7,7 +7,7 @@ const listadoRecipeByQuery = async (req, res, next) => {
   try {
     const { name } = req.query;
 
-    if (name && name !== ' ') {
+    // if (name && name !== " ") {
       let allInfo = await getAllInfo();
 
       let arrayFiltered = allInfo.filter((el) => {
@@ -19,9 +19,9 @@ const listadoRecipeByQuery = async (req, res, next) => {
       arrayFiltered.length
         ? res.json(arrayFiltered)
         : res.status(404).json("A recipe with that name does not exist.");
-    } else {
-      res.status(404).json("Please fill the input to search.");
-    }
+    // } else {
+      // res.status(404).json("Please fill the input to search.");
+    // }
   } catch (error) {
     next(error);
   }
@@ -29,7 +29,7 @@ const listadoRecipeByQuery = async (req, res, next) => {
 
 const detalleRecipeByID = async (req, res, next) => {
   // Obtener el detalle de una receta en particular.Debe traer solo los datos
-  // pedidos en la ruta de detalle de la receta.Incluir los tipos de dieta asociados.
+  // pedidos en la ruta de detalle de la receta. Incluir los tipos de dieta asociados.
   try {
     const { idReceta } = req.params;
 
@@ -49,7 +49,21 @@ const detalleRecipeByID = async (req, res, next) => {
   }
 };
 
+// const allRecipes = async (req, res, next) => {
+//   //Obtener todas las recetas.
+//   try {
+//     const allInfo = await getAllInfo();
+
+//     allInfo.length
+//       ? res.json(allInfo)
+//       : res.status(404).json("We can't find any recipe.");
+//   } catch (error) {
+//     next(error);
+//   }
+// };
+
 module.exports = {
   listadoRecipeByQuery,
   detalleRecipeByID,
+  // allRecipes,
 };

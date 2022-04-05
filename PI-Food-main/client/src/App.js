@@ -1,19 +1,19 @@
-import { Route } from "react-router-dom";
+import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import Favoritos from "./components/Favoritos";
+import Favorites from "./components/Favorites";
 import Home from "./components/Home";
-import NavBar from "./components/NavBar";
+import LandingPage from "./components/LandingPage/LandingPage";
 import RecetaDetail from "./components/RecetaDetail";
-import CreateRecipe from "./components/CreateRecipe";
 
 function App() {
   return (
     <div className="App">
-      <NavBar />
-      <Route path={"/"} exact render={() => <Home />} />
-      <Route path={"/favorites"} render={() => <Favoritos />} />
-      <Route path={"/recipes/:idReceta"} render={() => <RecetaDetail />} />
-      <Route path={"/recipe"} render={() => <CreateRecipe />} />
+      <Switch>
+        <Route exact path="/" component={LandingPage} />
+        <Route exact path="/home" component={Home} />
+        <Route exact path="/favorites" component={Favorites} />
+        <Route exact path="/recipes/:id" component={RecetaDetail} />
+      </Switch>
     </div>
   );
 }

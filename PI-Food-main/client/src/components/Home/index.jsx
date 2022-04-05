@@ -1,9 +1,12 @@
-import React, { Component } from "react";
+import NavBar from "../NavBar";
+import Recipes from "../Recipes";
 
-export default class Home extends Component {
-    render() {
-        return (
-            <div>Home</div>
-        )
-    }
+export default function Home() {
+    return (
+        <div>
+            <NavBar />
+            <h1>Home del PI FOODS.</h1>
+            <Recipes />
+        </div>
+    )
 }

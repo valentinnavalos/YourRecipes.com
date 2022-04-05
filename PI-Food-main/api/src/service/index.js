@@ -37,7 +37,7 @@ const getApiInfo = async () => {
 
   try {
     const apiUrl = await axios.get(
-      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true`
+      `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&number=100`
     );
     const apiInfo = await apiUrl.data.results.map((r) => {
       return {
@@ -48,6 +48,7 @@ const getApiInfo = async () => {
         healthScore: r.healthScore,
         //steps ahora es un array de obj
         steps: r.analyzedInstructions[0]?.steps,
+        image: r.image,
       };
     });
     return apiInfo;

@@ -1,1 +1,4 @@
-export const GET_RECIPES = 'GET_RECIPES'
+const GET_RECIPES = "GET_RECIPES";
+const SEARCH_RECIPES = "SEARCH_RECIPES";
+
+module.exports = { GET_RECIPES, SEARCH_RECIPES };

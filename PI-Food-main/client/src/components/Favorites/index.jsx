@@ -1,11 +1,11 @@
 import React from "react";
 import NavBar from "../NavBar";
 
-export default function RecetaDetail() {
+export default function Favorites() {
     return (
         <div>
             <NavBar />
-            <h1>Receta Detail</h1>
+            <div>Esta es la lista de recetas favoritas.</div>
         </div>
     )
 }

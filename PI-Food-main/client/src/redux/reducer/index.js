@@ -11,8 +11,15 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         recipes: action.payload,
-        //estamos pisando el [] recipes original del initialState.
+        //con el payload que viene del action, estamos pisando el [] recipes
+        //guardando en el store, el array de recipes traido del backend.
       };
+    }
+    case "SEARCH_RECIPES": {
+      return {
+        ...state,
+        recipes: action.payload,
+      }
     }
     default:
       return state;
