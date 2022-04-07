@@ -12,22 +12,22 @@ module.exports = (sequelize) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      validate: {
-        notEmpty: {
-          args: [true],
-          msg: "It do not be an empty string.",
-        },
-      },
+      // validate: {
+      //   notEmpty: {
+      //     args: [true],
+      //     msg: "It do not be an empty string.",
+      //   },
+      // },
     },
     summary: {
       type: DataTypes.TEXT,
       allowNull: false,
-      validate: {
-        notEmpty: {
-          args: [true],
-          msg: "It do not be an empty string.",
-        },
-      },
+      // validate: {
+      //   notEmpty: {
+      //     args: [true],
+      //     msg: "It do not be an empty string.",
+      //   },
+      // },
     },
     spoonacularScore: {
       type: DataTypes.DECIMAL,
@@ -38,7 +38,7 @@ module.exports = (sequelize) => {
         },
         max: {
           args: [100],
-          msg: "It do not be more than 100.",
+          msg: "It cannot be more than 100.",
         },
         min: {
           args: [0],
@@ -55,7 +55,7 @@ module.exports = (sequelize) => {
         },
         max: {
           args: [100],
-          msg: "It do not be more than 100.",
+          msg: "It cannot be more than 100.",
         },
         min: {
           args: [0],
@@ -64,8 +64,14 @@ module.exports = (sequelize) => {
       },
     },
     steps: {
-      type: DataTypes.STRING,
+      type: DataTypes.TEXT,
       // type: DataTypes.ARRAY(DataTypes.STRING),
     },
+    image: {
+      type: DataTypes.TEXT,
+    },
+    // diets: {
+    //   type: DataTypes.ARRAY(DataTypes.STRING),
+    // },
   });
 };

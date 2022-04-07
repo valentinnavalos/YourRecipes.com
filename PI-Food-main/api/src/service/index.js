@@ -49,6 +49,7 @@ const getApiInfo = async () => {
         //steps ahora es un array de obj
         steps: r.analyzedInstructions[0]?.steps,
         image: r.image,
+        diets: r.diets,
       };
     });
     return apiInfo;
@@ -72,6 +73,8 @@ const getApiInfoByPk = async (id) => {
       spoonacularScore: apiInfo.spoonacularScore,
       healthScore: apiInfo.healthScore,
       steps: apiInfo.analyzedInstructions[0]?.steps,
+      image: apiInfo.image,
+      diets: apiInfo.diets,
     };
 
     // console.log(result);
@@ -92,11 +95,15 @@ const getDbInfoByPk = async (id) => {
 };
 
 const getAllInfo = async () => {
-  const apiInfo = await getApiInfo();
-  const dbInfo = await getDbInfo();
+  try {
+    const apiInfo = await getApiInfo();
+    const dbInfo = await getDbInfo();
 
-  const allInfo = [...apiInfo, ...dbInfo];
-  return allInfo;
+    const allInfo = [...apiInfo, ...dbInfo];
+    return allInfo;
+  } catch (error) {
+    return error;
+  }
 };
 
 module.exports = {

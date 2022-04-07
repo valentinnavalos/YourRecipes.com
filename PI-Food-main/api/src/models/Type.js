@@ -6,14 +6,8 @@ module.exports = (sequelize) => {
     "type",
     {
       name: {
-        type: DataTypes.TEXT,
-        validate: {
-          notEmpty: {
-            args: [true],
-            msg: "It do not be an empty string.",
-          },
-          unique: true,
-        },
+        type: DataTypes.STRING,
+        allowNull: false,
       },
     },
     { timestamps: false }

@@ -18,7 +18,7 @@ const listadoRecipeByQuery = async (req, res, next) => {
 
       arrayFiltered.length
         ? res.json(arrayFiltered)
-        : res.status(404).json("A recipe with that name does not exist.");
+        : res.status(404).json({msg: "A recipe with that name does not exist."});
     // } else {
       // res.status(404).json("Please fill the input to search.");
     // }
@@ -49,21 +49,21 @@ const detalleRecipeByID = async (req, res, next) => {
   }
 };
 
-// const allRecipes = async (req, res, next) => {
-//   //Obtener todas las recetas.
-//   try {
-//     const allInfo = await getAllInfo();
+const allRecipes = async (req, res, next) => {
+  //Obtener todas las recetas.
+  try {
+    const allInfo = await getAllInfo();
 
-//     allInfo.length
-//       ? res.json(allInfo)
-//       : res.status(404).json("We can't find any recipe.");
-//   } catch (error) {
-//     next(error);
-//   }
-// };
+    allInfo.length
+      ? res.json(allInfo)
+      : res.status(404).json({msg: "We can't find any recipe."});
+  } catch (error) {
+    next(error);
+  }
+};
 
 module.exports = {
   listadoRecipeByQuery,
   detalleRecipeByID,
-  // allRecipes,
+  allRecipes,
 };

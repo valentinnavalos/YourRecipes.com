@@ -1,8 +1,8 @@
 const { Router } = require("express");
-const { traeOEncuentraDietas } = require("../controllers/types");
+const { findOrCreateTypesOfDiets } = require("../controllers/types");
 
 const router = Router();
 
-router.get("/", traeOEncuentraDietas);
+router.get("/", findOrCreateTypesOfDiets);
 
 module.exports = router;

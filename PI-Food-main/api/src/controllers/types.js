@@ -1,49 +1,67 @@
 const { Type } = require("../db");
+const { getApiInfo } = require("../service");
 
-const traeOEncuentraDietas = async (req, res, next) => {
+const findOrCreateTypesOfDiets = async (req, res, next) => {
+  // Obtener todos los tipos de dieta posibles. En una primera instancia,
+  // cuando no exista ninguno, deberán precargar la base de datos con los
+  // tipos de datos indicados por spoonacular acá:
+  // https://spoonacular.com/food-api/docs#Diets
+
   try {
-    //PSEUDOCODIGO.
-    //esta ruta se va a ejecutar cuando querramos traer (GET) los tipos de dietas
-    //PERO, si a priori no hay nada hay que precargar con todas los tipos de dietas.
+    const apiInfo = await getApiInfo();
 
-    //APROXIMACIÓN.
-    //deberiamos usar un findOrCreated() para que en caso de que no existan las dietas
-    //(primer caso) las cree, y para que en caso de que existan... las findee (encuentre)
-    //para ser devueltas como un find() normal.
+    const apiDiets = apiInfo.map((r) => r.diets);
 
-    const dietsNames = [
-      //en diets: []
-      "Gluten Free", //
-      "Ketogenic",
-      "Vegetarian", //
-      "Lacto-Vegetarian",
-      "Ovo-Vegetarian",
-      "Vegan", //
-      "Pescetarian",
-      "Paleo",
-      "Primal",
-      "Low FODMAP",
-    ];
+    const dietsList = apiDiets.flat(); //--> elimino el 2do nivel de []
+    // // const dietsList = apiDiets.join(",").split(",");
 
-    let result = dietsNames.filter(async (d) => {
-      const [type, created] = await Type.findOrCreate({
-        where: {
-          name: d,
-        },
-        defaults: {
-          name: d,
-        },
-      });
-      console.log(created);
-      return type;
+    let dietsListFiltered = [];
+    dietsList.forEach((diet) => {
+      if (!dietsListFiltered.includes(diet)) {
+        dietsListFiltered.push(diet);
+      }
     });
 
-    res.json(result);
+    // let dietsListFiltered = new Set(dietsList);
+
+    // res.json({ dietsList: Array.from(dietsListFiltered) });
+
+    dietsListFiltered.forEach(async (diet) => {
+      const [type, created] = await Type.findOrCreate({
+        where: { name: diet },
+      });
+      // console.log(created);
+    });
+
+    const allDbDiets = await Type.findAll();
+
+    res.json(allDbDiets);
+
+    //-------------------------------
+    //FILTRAMOS EL ARRAY DE TODAS LAS DIETS PARA QUE NO QUEDE NINGUNA REPETIDA, CREAMOS LAS TYPES EN BASE A ESE ARRAY, BUSCAMOS Y DEVOLVEMOS.
+    // let dietsFiltered = [];
+    // dietsList.forEach((diet) => {
+    //   if (!dietsFiltered.includes(diet)) {
+    //     dietsFiltered.push(diet);
+    //   }
+    // });
+
+    // dietsFiltered.forEach(async (diet) => {
+    //   try {
+    //     await Type.Create({ name: diet });
+    //   } catch (error) {
+    //     console.log(error);
+    //   }
+    // });
+
+    // const allDbDiets = await Type.findAll();
+
+    // res.json(allDbDiets);
   } catch (error) {
     next(error);
   }
 };
 
 module.exports = {
-  traeOEncuentraDietas,
+  findOrCreateTypesOfDiets,
 };

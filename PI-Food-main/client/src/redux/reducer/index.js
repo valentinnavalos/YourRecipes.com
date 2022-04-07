@@ -1,8 +1,15 @@
-import { GET_RECIPES } from "../actions/actionTypes";
+import {
+  GET_RECIPES,
+  SEARCH_RECIPES,
+  GET_RECIPE_DETAIL,
+  CLEAR_DETAIL,
+  POST_NEW_RECIPE,
+} from "../actions/actionTypes";
 
 const initialState = {
   recipes: [],
   filteredRecipes: [],
+  recipeDetail: {},
 };
 
 export default function reducer(state = initialState, action) {
@@ -11,15 +18,31 @@ export default function reducer(state = initialState, action) {
       return {
         ...state,
         recipes: action.payload,
-        //con el payload que viene del action, estamos pisando el [] recipes
-        //guardando en el store, el array de recipes traido del backend.
       };
     }
-    case "SEARCH_RECIPES": {
+    case SEARCH_RECIPES: {
       return {
         ...state,
         recipes: action.payload,
-      }
+      };
+    }
+    case GET_RECIPE_DETAIL: {
+      return {
+        ...state,
+        recipeDetail: action.payload,
+      };
+    }
+    case CLEAR_DETAIL: {
+      return {
+        ...state,
+        recipeDetail: {},
+      };
+    }
+    case POST_NEW_RECIPE: {
+      return {
+        ...state,
+        recipeDetail: action.payload,
+      };
     }
     default:
       return state;
