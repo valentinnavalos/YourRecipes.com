@@ -22,12 +22,30 @@ const createRecipe = async (req, res, next) => {
       image,
     });
 
-    if (diets) {
-      const dietDb = await Type.findAll({ where: { name: diets } });
+    // console.log("createRecipe", diets);
+    // no consologeó el diets
+
+    // igual diets es un arreglo.
+    // y este arreglo puede tener más de un elemento.
+    // aunque creo que es un array de strings, separadas por comas.
+    // donde el único elemento que hay es una concatenación de dietas.
+
+    // y tendria que ser un array de strings donde cada elemento del
+    // arreglo es un string.
+
+    const newDiets = diets.split(",");
+    //ahora newDiets es un array de dietas
+    console.log("newDiets", newDiets);
+
+    newDiets.forEach(async (diet) => {
+      let dietDb = await Type.findAll({ where: { name: diet } });
       //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
 
       await newRecipe.addTypes(dietDb);
-    }
+    });
+    // const dietDb = await Type.findAll({ where: { name: diets } });
+    // //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
+
     res.json({
       msg: "Recipe created successfully",
     });

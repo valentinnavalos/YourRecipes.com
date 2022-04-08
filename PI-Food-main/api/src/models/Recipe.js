@@ -31,37 +31,37 @@ module.exports = (sequelize) => {
     },
     spoonacularScore: {
       type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          args: [true],
-          msg: "It must be a decimal number.",
-        },
-        max: {
-          args: [100],
-          msg: "It cannot be more than 100.",
-        },
-        min: {
-          args: [0],
-          msg: "It must be a possitive value.",
-        },
-      },
+      // validate: {
+      //   isDecimal: {
+      //     args: [true],
+      //     msg: "It must be a decimal number.",
+      //   },
+      //   max: {
+      //     args: [100],
+      //     msg: "It cannot be more than 100.",
+      //   },
+      //   min: {
+      //     args: [0],
+      //     msg: "It must be a possitive value.",
+      //   },
+      // },
     },
     healthScore: {
       type: DataTypes.DECIMAL,
-      validate: {
-        isDecimal: {
-          args: [true],
-          msg: "It must be a decimal number.",
-        },
-        max: {
-          args: [100],
-          msg: "It cannot be more than 100.",
-        },
-        min: {
-          args: [0],
-          msg: "It must be a possitive value.",
-        },
-      },
+      // validate: {
+      //   isDecimal: {
+      //     args: [true],
+      //     msg: "It must be a decimal number.",
+      //   },
+      //   max: {
+      //     args: [100],
+      //     msg: "It cannot be more than 100.",
+      //   },
+      //   min: {
+      //     args: [0],
+      //     msg: "It must be a possitive value.",
+      //   },
+      // },
     },
     steps: {
       type: DataTypes.TEXT,

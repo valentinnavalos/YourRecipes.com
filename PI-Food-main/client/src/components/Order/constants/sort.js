@@ -1,0 +1,7 @@
+const ASCENDENTE = "ASCENDENTE";
+const DESCENDENTE = "DESCENDENTE";
+
+module.exports = {
+  ASCENDENTE,
+  DESCENDENTE,
+};

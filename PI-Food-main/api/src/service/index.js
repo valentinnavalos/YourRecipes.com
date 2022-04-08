@@ -70,11 +70,17 @@ const getApiInfoByPk = async (id) => {
       id: apiInfo.id,
       title: apiInfo.title,
       summary: apiInfo.summary,
-      spoonacularScore: apiInfo.spoonacularScore,
-      healthScore: apiInfo.healthScore,
-      steps: apiInfo.analyzedInstructions[0]?.steps,
-      image: apiInfo.image,
-      diets: apiInfo.diets,
+      spoonacularScore: apiInfo.spoonacularScore
+        ? apiInfo.spoonacularScore
+        : "No puntuation.",
+      healthScore: apiInfo.healthScore
+        ? apiInfo.healthScore
+        : "No health score.",
+      steps: apiInfo.analyzedInstructions[0]?.steps
+        ? apiInfo.analyzedInstructions[0].steps
+        : "No steps.",
+      image: apiInfo.image ? apiInfo.image : "No image.",
+      diets: apiInfo.diets ? apiInfo.diets : "No diets.",
     };
 
     // console.log(result);
@@ -85,12 +91,26 @@ const getApiInfoByPk = async (id) => {
 };
 
 const getDbInfo = async () => {
-  return await Recipe.findAll();
+  return await Recipe.findAll({
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    }
+  });
 };
 
 const getDbInfoByPk = async (id) => {
   return await Recipe.findByPk(id, {
-    include: Type,
+    include: {
+      model: Type,
+      attributes: ["name"],
+      through: {
+        attributes: [],
+      },
+    },
   });
 };
 
@@ -98,6 +118,8 @@ const getAllInfo = async () => {
   try {
     const apiInfo = await getApiInfo();
     const dbInfo = await getDbInfo();
+
+    // console.log('getAllInfo', dbInfo);
 
     const allInfo = [...apiInfo, ...dbInfo];
     return allInfo;

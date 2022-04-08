@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 
 export default function Card({ title, image, id , diets}) {
+
     return (
         <div className="card">
             <Link to={`/recipeDetail/${id}`}>
@@ -8,7 +9,8 @@ export default function Card({ title, image, id , diets}) {
             </Link>
             <br />
             <img src={image} alt={title} width='450px' height={'350px'}/>
-            <h5>{diets}</h5>
+            <h5>{diets?.join(', ')}</h5>
+
         </div>
     )
 }

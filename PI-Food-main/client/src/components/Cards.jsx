@@ -7,12 +7,12 @@ export default function Cards() {
 
     const dispatch = useDispatch();
 
-    const { recipes } = useSelector(state => state);
+    const { filteredRecipes } = useSelector(state => state);
 
     useEffect(() => {
         dispatch(getRecipes());
     }, [dispatch]); //---> componenteDidUpdate()
-    
+
     // la dependencia de useEffect es dispatch, porque si no, no se ejecutaría el dispatch
     // es decir, que este componenteDidMount se ejecutará siempre y cuando tengamos un dispatch
     // osea, siempre y cuando suceda un dispatch.
@@ -20,9 +20,9 @@ export default function Cards() {
 
     return (
         <div className="cards">
-            {recipes.length? recipes.map(recipe => (
+            {filteredRecipes.length ? filteredRecipes.map(recipe => (
                 <Card key={recipe.id} {...recipe} />
-            )): <h2>Loading...</h2>}
+            )) : <h2>Loading...</h2>}
         </div>
     )
 

@@ -1,5 +1,5 @@
 import OrderAZ from "./OrderAZ";
-import OrderDiet from "./OrderDiet";
+import FilterByDiet from "./FilterByDiet";
 import OrderScore from "./OrderScore";
 
 export default function Order() {
@@ -7,7 +7,7 @@ export default function Order() {
         <div>
             <OrderAZ />
             <OrderScore />
-            <OrderDiet />
+            <FilterByDiet />
         </div>
     )
 }

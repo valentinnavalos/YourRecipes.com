@@ -10,11 +10,14 @@ const listadoRecipeByQuery = async (req, res, next) => {
     // if (name && name !== " ") {
       let allInfo = await getAllInfo();
 
-      let arrayFiltered = allInfo.filter((el) => {
+      // console.log(allInfo);
+
+      let arrayFiltered = allInfo?.filter((el) => {
         if (el.title.toLowerCase().includes(name.toLowerCase())) {
           return el;
         }
       });
+
 
       arrayFiltered.length
         ? res.json(arrayFiltered)

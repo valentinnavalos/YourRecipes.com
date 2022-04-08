@@ -1,16 +1,22 @@
+import { useDispatch } from "react-redux";
+import { getRecipes, sortRecipes } from "../redux/actions";
+import { ASCENDENTE, DESCENDENTE } from "./Order/constants/sort";
+
 export default function OrderAZ() {
 
-    function handleOnChange (e){
+    const dispatch = useDispatch();
+
+    function handleOnChange(e) {
         e.preventDefault();
-        console.log(e)
+        e.target.value === '' ? dispatch(getRecipes()) : dispatch(sortRecipes(e.target.value));
     }
 
     return (
         <div>
             <select name="select" onChange={handleOnChange}>
-                <option value="">Filter by Name</option>
-                <option value="asc">A-Z</option>
-                <option value="desc">Z-A</option>
+                <option value="">Order by Name</option>
+                <option value={ASCENDENTE}>A-Z</option>
+                <option value={DESCENDENTE}>Z-A</option>
             </select>
         </div>
     )

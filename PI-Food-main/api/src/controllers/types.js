@@ -10,9 +10,9 @@ const findOrCreateTypesOfDiets = async (req, res, next) => {
   try {
     const apiInfo = await getApiInfo();
 
-    const apiDiets = apiInfo.map((r) => r.diets);
+    const apiDiets = apiInfo?.map((r) => r.diets);
 
-    const dietsList = apiDiets.flat(); //--> elimino el 2do nivel de []
+    const dietsList = apiDiets.flat().concat("ketogenic", "vegetarian"); //--> elimino el 2do nivel de []
     // // const dietsList = apiDiets.join(",").split(",");
 
     let dietsListFiltered = [];
@@ -27,10 +27,9 @@ const findOrCreateTypesOfDiets = async (req, res, next) => {
     // res.json({ dietsList: Array.from(dietsListFiltered) });
 
     dietsListFiltered.forEach(async (diet) => {
-      const [type, created] = await Type.findOrCreate({
+      await Type.findOrCreate({
         where: { name: diet },
       });
-      // console.log(created);
     });
 
     const allDbDiets = await Type.findAll();

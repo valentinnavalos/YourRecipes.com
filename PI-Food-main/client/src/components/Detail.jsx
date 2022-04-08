@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { clearDetail, getRecipeDetail } from "../redux/actions";
 import NavBar from "./NavBar";
 
@@ -18,7 +18,7 @@ export default function Detail() {
         }
     }, [dispatch, idRecipe]);
 
-    // console.log(recipeDetail);
+    // console.log(recipeDetail.diets);
 
     return (
         <div className="detail">
@@ -31,9 +31,14 @@ export default function Detail() {
                     <p>{recipeDetail.summary}</p>
                     {recipeDetail.spoonacularScore ? <p>Spoonacular Score: {recipeDetail.spoonacularScore}</p> : <p>No score available.</p>}
                     {recipeDetail.healthScore ? <p>Health Score: {recipeDetail.healthScore}</p> : <p>No score available.</p>}
-                    {recipeDetail.diets ? <p>Diets: {recipeDetail.diets.map(diet => diet + ' ')}</p> : <p>There are no types of diets.</p>}
+                    {/* {recipeDetail.diets.length ? <p>Diets: {recipeDetail.diets}</p> : <p>There are no types of diets.</p>} */}
+                    <div>
+                        <h4>Diets:</h4>
+                        {recipeDetail.diets?.length ? recipeDetail.diets.map(el => { return (<p>{el}</p>) }) : <p>There are no types of diets.</p>}
+                    </div>
                     {/* {recipeDetail.steps? <p>Steps: {recipeDetail.steps}</p>: <p>No hay pasos</p>}  */}
                 </div> : (<h2>Loading...</h2>)}
+            <Link to={'/home'}><button>Go back</button></Link>
 
         </div>
     )
