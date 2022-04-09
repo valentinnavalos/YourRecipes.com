@@ -12,63 +12,63 @@ module.exports = (sequelize) => {
     title: {
       type: DataTypes.STRING,
       allowNull: false,
-      // validate: {
-      //   notEmpty: {
-      //     args: [true],
-      //     msg: "It do not be an empty string.",
-      //   },
-      // },
+      validate: {
+        notEmpty: {
+          args: [true],
+          msg: "It cannot be an empty string.",
+        },
+      },
     },
     summary: {
       type: DataTypes.TEXT,
       allowNull: false,
-      // validate: {
-      //   notEmpty: {
-      //     args: [true],
-      //     msg: "It do not be an empty string.",
-      //   },
-      // },
+      validate: {
+        notEmpty: {
+          args: [true],
+          msg: "It cannot be an empty string.",
+        },
+      },
     },
     spoonacularScore: {
-      type: DataTypes.DECIMAL,
-      // validate: {
-      //   isDecimal: {
-      //     args: [true],
-      //     msg: "It must be a decimal number.",
-      //   },
-      //   max: {
-      //     args: [100],
-      //     msg: "It cannot be more than 100.",
-      //   },
-      //   min: {
-      //     args: [0],
-      //     msg: "It must be a possitive value.",
-      //   },
-      // },
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
+        max: {
+          args: [100],
+          msg: "It cannot be more than 100.",
+        },
+        min: {
+          args: [0],
+          msg: "It must be a possitive value.",
+        },
+      },
     },
     healthScore: {
-      type: DataTypes.DECIMAL,
-      // validate: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      validate: {
       //   isDecimal: {
       //     args: [true],
       //     msg: "It must be a decimal number.",
       //   },
-      //   max: {
-      //     args: [100],
-      //     msg: "It cannot be more than 100.",
-      //   },
-      //   min: {
-      //     args: [0],
-      //     msg: "It must be a possitive value.",
-      //   },
-      // },
+        max: {
+          args: [100],
+          msg: "It cannot be more than 100.",
+        },
+        min: {
+          args: [0],
+          msg: "It must be a possitive value.",
+        },
+      },
     },
     steps: {
-      type: DataTypes.TEXT,
-      // type: DataTypes.ARRAY(DataTypes.STRING),
+      type: DataTypes.JSON,
+      // type: DataTypes.TEXT,
+      allowNull: false,
     },
     image: {
       type: DataTypes.TEXT,
+      allowNull: true,
     },
     // diets: {
     //   type: DataTypes.ARRAY(DataTypes.STRING),

@@ -23,6 +23,7 @@ const createRecipe = async (req, res, next) => {
     });
 
     // console.log("createRecipe", diets);
+    
     // no consologeó el diets
 
     // igual diets es un arreglo.
@@ -33,11 +34,11 @@ const createRecipe = async (req, res, next) => {
     // y tendria que ser un array de strings donde cada elemento del
     // arreglo es un string.
 
-    const newDiets = diets.split(",");
+    // const newDiets = diets.split(",");
     //ahora newDiets es un array de dietas
-    console.log("newDiets", newDiets);
+    // console.log("newDiets", newDiets);
 
-    newDiets.forEach(async (diet) => {
+    diets.forEach(async (diet) => {
       let dietDb = await Type.findAll({ where: { name: diet } });
       //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
 

@@ -8,22 +8,23 @@ const listadoRecipeByQuery = async (req, res, next) => {
     const { name } = req.query;
 
     // if (name && name !== " ") {
-      let allInfo = await getAllInfo();
+    let allInfo = await getAllInfo();
 
-      // console.log(allInfo);
+    // console.log(allInfo);
 
-      let arrayFiltered = allInfo?.filter((el) => {
-        if (el.title.toLowerCase().includes(name.toLowerCase())) {
-          return el;
-        }
-      });
+    let arrayFiltered = allInfo?.filter((el) => {
+      if (el.title?.toLowerCase().includes(name.toLowerCase())) {
+        return el;
+      }
+    });
 
-
-      arrayFiltered.length
-        ? res.json(arrayFiltered)
-        : res.status(404).json({msg: "A recipe with that name does not exist."});
+    arrayFiltered.length
+      ? res.json(arrayFiltered)
+      : res
+          .status(404)
+          .json({ msg: "A recipe with that name does not exist." });
     // } else {
-      // res.status(404).json("Please fill the input to search.");
+    // res.status(404).json("Please fill the input to search.");
     // }
   } catch (error) {
     next(error);
@@ -38,8 +39,20 @@ const detalleRecipeByID = async (req, res, next) => {
 
     if (idReceta.length > 10) {
       const dbInfo = await getDbInfoByPk(idReceta);
+
+      let resultDbByID = {
+        id: dbInfo.id,
+        title: dbInfo.title,
+        image: dbInfo.image,
+        summary: dbInfo.summary,
+        spoonacularScore: dbInfo.spoonacularScore,
+        healthScore: dbInfo.healthScore,
+        steps: dbInfo.steps,
+        diets: dbInfo.types.map((t) => t.name),
+      };
+
       dbInfo
-        ? res.json(dbInfo)
+        ? res.json(resultDbByID)
         : res.status(404).json({ msg: "We can't find that recipe." });
     } else {
       const apiInfo = await getApiInfoByPk(idReceta);
@@ -59,7 +72,7 @@ const allRecipes = async (req, res, next) => {
 
     allInfo.length
       ? res.json(allInfo)
-      : res.status(404).json({msg: "We can't find any recipe."});
+      : res.status(404).json({ msg: "We can't find any recipe." });
   } catch (error) {
     next(error);
   }

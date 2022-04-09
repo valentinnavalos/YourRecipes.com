@@ -34,9 +34,20 @@ export default function Detail() {
                     {/* {recipeDetail.diets.length ? <p>Diets: {recipeDetail.diets}</p> : <p>There are no types of diets.</p>} */}
                     <div>
                         <h4>Diets:</h4>
-                        {recipeDetail.diets?.length ? recipeDetail.diets.map(el => { return (<p>{el}</p>) }) : <p>There are no types of diets.</p>}
+                        {recipeDetail.diets?.length ? recipeDetail.diets.map(el => { return (<p key={el} >{el}</p>) }) : <p>There are no types of diets.</p>}
                     </div>
-                    {/* {recipeDetail.steps? <p>Steps: {recipeDetail.steps}</p>: <p>No hay pasos</p>}  */}
+                    <div>
+                        <h4>Steps:</h4>
+                        {recipeDetail.steps?.length ? recipeDetail.steps.map(el => {
+                            return (
+                                <div key={el.number}>
+                                    <label>Step number {el.number}</label>
+                                    <p>{el.step}</p>
+                                </div>
+
+                            )
+                        }) : <p>There are no steps to show.</p>}
+                    </div>
                 </div> : (<h2>Loading...</h2>)}
             <Link to={'/home'}><button>Go back</button></Link>
 
