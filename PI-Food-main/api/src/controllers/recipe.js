@@ -47,7 +47,7 @@ const createRecipe = async (req, res, next) => {
     // const dietDb = await Type.findAll({ where: { name: diets } });
     // //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
 
-    res.json({
+    res.status(200).json({
       msg: "Recipe created successfully",
     });
 

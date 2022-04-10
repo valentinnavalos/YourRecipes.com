@@ -152,7 +152,7 @@ const getAllInfo = async () => {
         diets: r.types.map((t) => t.name),
       };
     });
-    console.log("resultDb", resultDb);
+    // console.log("resultDb", resultDb);
 
     const allInfo = [...apiInfo, ...resultDb];
     // console.log(allInfo);

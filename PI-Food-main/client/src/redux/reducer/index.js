@@ -10,6 +10,7 @@ import {
   FILTER_BY_TYPE_OF_DIET,
   SORT,
   SORT_BY_SCORE,
+  // SEARCH_RECIPES_FAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -17,6 +18,7 @@ const initialState = {
   filteredRecipes: [],
   recipeDetail: {},
   typesOfDiets: [],
+  // errorMsg: "",
 };
 
 export default function reducer(state = initialState, action) {
@@ -29,11 +31,19 @@ export default function reducer(state = initialState, action) {
       };
     }
     case SEARCH_RECIPES: {
+      console.log("reducer , payload", action.payload);
       return {
         ...state,
         filteredRecipes: action.payload,
       };
     }
+    // case SEARCH_RECIPES_FAIL: {
+    //   console.log("reducer , payload", action.payload);
+    //   return {
+    //     ...state,
+    //     errorMsg: action.payload,
+    //   };
+    // }
     case GET_RECIPE_DETAIL: {
       return {
         ...state,

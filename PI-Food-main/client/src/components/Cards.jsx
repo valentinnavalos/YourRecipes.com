@@ -3,15 +3,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getRecipes } from '../redux/actions';
 import Card from './Card';
 
-export default function Cards() {
+export default function Cards({ currentRecipes }) {
 
-    const dispatch = useDispatch();
+    // const dispatch = useDispatch();
 
-    const { filteredRecipes } = useSelector(state => state);
+    // const { filteredRecipes } = useSelector(state => state);
 
-    useEffect(() => {
-        dispatch(getRecipes());
-    }, [dispatch]); //---> componenteDidUpdate()
+    // useEffect(() => {
+    //     dispatch(getRecipes());
+    // }, [dispatch]); //---> componenteDidUpdate()
 
     // la dependencia de useEffect es dispatch, porque si no, no se ejecutaría el dispatch
     // es decir, que este componenteDidMount se ejecutará siempre y cuando tengamos un dispatch
@@ -20,7 +20,7 @@ export default function Cards() {
 
     return (
         <div className="cards">
-            {filteredRecipes.length ? filteredRecipes.map(recipe => (
+            {currentRecipes.length ? currentRecipes.map(recipe => (
                 <Card key={recipe.id} {...recipe} />
             )) : <h2>Loading...</h2>}
         </div>

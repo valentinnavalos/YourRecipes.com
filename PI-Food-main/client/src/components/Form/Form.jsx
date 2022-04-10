@@ -38,7 +38,7 @@ export default function Form() {
         } else {
             setDisabledButton(true);
         }
-    }, [errors]);
+    }, [errors, input, stepList]);
 
     function validateForm(state) {
         const errors = {};
@@ -46,7 +46,8 @@ export default function Form() {
             errors.title = "Title is required";
             // } else if (!/^[\d]$/.test(state.title)) {
             //   errors.title = "Title must be a string";
-        } else if (!/^[a-zñ|A-ZÑ\s]{6,}$/.test(state.title)) {
+        } else if (!/^[a-zñá-ú\s]{6,}$/i.test(state.title)) {
+            // /^[a-zñ|A-ZÑ\s]{6,}$/
             errors.title = "Title must be a string of at least 6 characters long";
         }
         // if (!state.image) {
@@ -58,7 +59,8 @@ export default function Form() {
         // }
         if (!state.summary) {
             errors.summary = "Summary is required";
-        } else if (!/^[a-zñ|A-ZÑ\s\d]{10,}$/.test(state.summary)) {
+        } else if (!/^[a-zñá-ú\s\d]{10,}$/i.test(state.summary)) {
+            // /^[a-zñ|A-ZÑ\s\d]{10,}$/
             errors.summary = "Summary must be at least 10 characters long";
         }
         if (!state.spoonacularScore) {

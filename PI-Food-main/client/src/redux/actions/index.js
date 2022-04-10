@@ -9,8 +9,9 @@ const {
   FILTER_BY_TYPE_OF_DIET,
   SORT,
   SORT_BY_SCORE,
+  // SEARCH_RECIPES_FAIL
 } = require("./actionTypes");
-require("dotenv").config();
+// require("dotenv").config();
 
 // const { HOST, PORT } = process.env;
 
@@ -19,10 +20,10 @@ function getRecipes() {
     try {
       const aux = "";
       let response = await axios.get(
-        `http://localhost:3001/api/recipes?name=${aux}`
-        // 'http://localhost:3001/api/recipes/all'
+        // `http://localhost:3001/api/recipes?name=${aux}`
+        "http://localhost:3001/api/recipes/all"
       );
-      console.log(response);
+      console.log("getRecipes", response);
       return dispatch({
         type: GET_RECIPES,
         payload: response.data,
@@ -57,12 +58,25 @@ function searchRecipes(name) {
       let response = await axios.get(
         `http://localhost:3001/api/recipes?name=${name}`
       );
+      console.log("searchRecipes", response.data);
+
       return dispatch({
         type: SEARCH_RECIPES,
         payload: response.data,
       });
+
     } catch (error) {
       console.log(error);
+      return dispatch({
+        type: SEARCH_RECIPES,
+        payload: [],
+
+        // type: SEARCH_RECIPES_FAIL,
+        // payload: 'Recipes not found',
+
+        // payload: 'Recipes not found',
+        // payload: response.data,//--> no lee el response
+      });
     }
   };
 }

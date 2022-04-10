@@ -8,9 +8,9 @@ export default function FilterByDiet() {
 
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        dispatch(getTypesOfDiets());
-    }, [dispatch]);
+    // useEffect(() => {
+    //     dispatch(getTypesOfDiets());
+    // }, [dispatch]);
 
 
     function handleOnChange(e) {

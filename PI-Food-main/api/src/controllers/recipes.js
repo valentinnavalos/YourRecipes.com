@@ -7,25 +7,20 @@ const listadoRecipeByQuery = async (req, res, next) => {
   try {
     const { name } = req.query;
 
-    // if (name && name !== " ") {
     let allInfo = await getAllInfo();
-
-    // console.log(allInfo);
 
     let arrayFiltered = allInfo?.filter((el) => {
       if (el.title?.toLowerCase().includes(name.toLowerCase())) {
         return el;
       }
     });
+    // console.log('arrayFiltered from listadoRecipeByQuery',arrayFiltered);
 
     arrayFiltered.length
-      ? res.json(arrayFiltered)
+      ? res.status(200).json(arrayFiltered)
       : res
           .status(404)
           .json({ msg: "A recipe with that name does not exist." });
-    // } else {
-    // res.status(404).json("Please fill the input to search.");
-    // }
   } catch (error) {
     next(error);
   }
@@ -52,12 +47,12 @@ const detalleRecipeByID = async (req, res, next) => {
       };
 
       dbInfo
-        ? res.json(resultDbByID)
+        ? res.status(200).json(resultDbByID)
         : res.status(404).json({ msg: "We can't find that recipe." });
     } else {
       const apiInfo = await getApiInfoByPk(idReceta);
       apiInfo
-        ? res.json(apiInfo)
+        ? res.status(200).json(apiInfo)
         : res.status(404).json({ msg: "We can't find that recipe." });
     }
   } catch (error) {
@@ -71,7 +66,7 @@ const allRecipes = async (req, res, next) => {
     const allInfo = await getAllInfo();
 
     allInfo.length
-      ? res.json(allInfo)
+      ? res.status(200).json(allInfo)
       : res.status(404).json({ msg: "We can't find any recipe." });
   } catch (error) {
     next(error);

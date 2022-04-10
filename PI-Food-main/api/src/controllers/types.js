@@ -34,7 +34,7 @@ const findOrCreateTypesOfDiets = async (req, res, next) => {
 
     const allDbDiets = await Type.findAll();
 
-    res.json(allDbDiets);
+    res.status(200).json(allDbDiets);
 
     //-------------------------------
     //FILTRAMOS EL ARRAY DE TODAS LAS DIETS PARA QUE NO QUEDE NINGUNA REPETIDA, CREAMOS LAS TYPES EN BASE A ESE ARRAY, BUSCAMOS Y DEVOLVEMOS.
