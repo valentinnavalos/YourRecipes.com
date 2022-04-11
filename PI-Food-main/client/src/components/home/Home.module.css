@@ -1,0 +1,35 @@
+.homePageContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  position: relative;
+  margin: 10px 0;
+}
+
+.cardsContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 1000px;
+  margin: 0 auto;
+}
+
+.ordersContainer {
+  display: flex;
+  flex-direction: row;
+  width: 600px;
+  height: 50px;
+  border: 1rem;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.85),
+    rgba(43, 9, 4, 0.85)
+  );
+  border-radius: 7px;
+  border: 1px solid #000;
+}

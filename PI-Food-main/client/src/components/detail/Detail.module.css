@@ -1,0 +1,118 @@
+.detailContainer {
+  max-width: 800px;
+  width: 100%;
+  height: 100%;
+  margin: 0 auto;
+  padding: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  margin-top: 30px;
+  margin-bottom: 30px;
+  color: bisque;
+  background: rgba(10, 7, 12, 0.84);
+}
+
+.detailHeader {
+  display: flex;
+  width: 90%;
+  align-items: center;
+    justify-content: space-between;
+}
+
+.button {
+  text-decoration: none;
+  width: auto;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.85),
+    rgba(43, 9, 4, 0.85)
+  );
+  border: 2px solid rgba(233, 195, 182, 0.55);
+  font-size: 1.3rem;
+  color: rgba(233, 195, 182, 0.55);
+  cursor: pointer;
+  padding: 0.5rem;
+}
+
+.button:hover {
+  transition: 0.3s;
+  box-shadow: 0 0 20px 15px rgb(139 136 89 / 75%);
+}
+
+.firstContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  width: 100%;
+}
+
+.imgContainer {
+  margin: 0.8rem;
+  border-radius: 5px;
+  opacity: 0.8;
+}
+
+.imgContainer:hover {
+  transform: scale(1.02);
+}
+
+.scoresContainer {
+  margin: 0.5rem;
+  display: flex;
+  text-align: left;
+  flex-direction: column;
+  background-color: #2e2e2e;
+  padding: 1.5rem;
+  border-radius: 3px;
+  transition: 0.3s ease all;
+  border: 1px solid transparent;
+  box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
+}
+
+/* .scoresContainer:hover {
+  background-color: #353535;
+  border: 1px solid rgba(108, 17, 4, 0.85);
+} */
+
+.scoresText {
+  margin: 0;
+  font-size: 1.3rem;
+}
+
+.dietsContainer {
+  padding: none;
+}
+
+.dietsTitle {
+  font-size: 1.3rem;
+  margin: 0;
+  margin-top: 1.5rem;
+}
+
+.dietsList {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.dietsText {
+  margin: 0;
+  padding: 0;
+}
+
+.infoContainer {
+  background-color: #2e2e2e;
+  padding: 0.1rem 2rem;
+  margin-top: 1rem;
+  border-radius: 3px;
+  text-align: justify
+}

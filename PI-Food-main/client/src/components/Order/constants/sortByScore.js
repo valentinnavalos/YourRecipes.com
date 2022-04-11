@@ -1,7 +1,2 @@
-const HIGHEST = "HIGHEST";
-const LOWEST = "LOWEST";
-
-module.exports = {
-  HIGHEST,
-  LOWEST,
-};
+export const HIGHEST = "HIGHEST";
+export const LOWEST = "LOWEST";

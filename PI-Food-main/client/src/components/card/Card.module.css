@@ -1,0 +1,59 @@
+.cardContainer{
+    width: 400px;
+    height: 380px;
+    /* width: 350px;
+    height: 330px; */
+    display: flex;
+    flex-direction: column;
+    border: 1rem;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(
+      to bottom,
+      rgba(210, 73, 54, 0.45),
+      rgba(43, 9, 4, 0.45)
+    );
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.cardContainer:hover{
+    transition: 0.35s;
+    background: linear-gradient(
+      to bottom,
+      rgba(210, 73, 54, 0.85),
+      rgba(43, 9, 4, 0.85)
+    );
+}
+
+.cardTitle{
+    font-size: 1.1rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: bisque;
+    /* background: rgba(5, 7, 12, 0.75); */
+    width: 80%;
+    justify-content: center;
+    align-items: center;
+    border-radius: 5px;
+    margin: auto;
+    padding: 0.5rem;
+}
+
+.cardImage{
+    width: 295px;
+    height: 198px;
+    border-radius: 5px;
+    border: 1px solid #000;
+}
+
+.cardDiets{
+    color: bisque;
+    background: rgba(5, 7, 12, 0.75);
+    border-radius: 5px;
+    padding: 0.3rem;
+    width: 65%;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}

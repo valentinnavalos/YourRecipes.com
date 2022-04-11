@@ -1,9 +1,9 @@
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
-import Detail from "./components/Detail";
-import Home from "./components/Home";
-import LandingPage from "./components/LandingPage";
-import Form from "./components/Form/Form";
+import Detail from "./components/detail/Detail";
+import Home from "./components/home/Home";
+import LandingPage from "./components/landingpage/LandingPage";
+import Form from "./components/form/Form";
 
 function App() {
   return (

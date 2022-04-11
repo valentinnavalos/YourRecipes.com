@@ -18,7 +18,6 @@ const {
 function getRecipes() {
   return async function (dispatch) {
     try {
-      const aux = "";
       let response = await axios.get(
         // `http://localhost:3001/api/recipes?name=${aux}`
         "http://localhost:3001/api/recipes/all"

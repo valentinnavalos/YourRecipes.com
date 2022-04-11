@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { postNewRecipe } from "../../redux/actions";
-import { validateForm } from "./validateForm";
-import NavBar from "../NavBar";
+import { getTypesOfDiets, postNewRecipe } from "../../redux/actions";
+// import { validateForm } from "./validateForm";
+// import NavBar from "../navbar/NavBar";
 import s from './Form.module.css';
-import { useHistory } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Form() {
     const [input, setInput] = useState({
@@ -39,6 +39,10 @@ export default function Form() {
             setDisabledButton(true);
         }
     }, [errors, input, stepList]);
+
+    useEffect(() => {
+        dispatch(getTypesOfDiets())
+    }, [dispatch]);
 
     function validateForm(state) {
         const errors = {};
@@ -145,15 +149,6 @@ export default function Form() {
             filteredSteps[i].number--;
         }
 
-
-        // filteredSteps = filteredSteps.map(el => {
-        //     if (numberStepToDelete < el.number) {
-        //         return {
-        //             number: el.number - 1,
-        //             step: el.step,
-        //         }
-        //     }
-        // })
         setStepCounter(stepCounter - 1);
         setStepList(filteredSteps);
     }
@@ -219,58 +214,155 @@ export default function Form() {
 
 
     return (
-        <div>
-            <NavBar />
-            <br />
-            <form onSubmit={handleOnSubmit}>
+        <div className={s.mainContainer}>
+            <div className={s.formHeader}>
+                <h2>Add a new recipe</h2>
+                <Link to={"/home"}>
+                    <button className={s.button}>Home</button>
+                </Link>
+            </div>
+            <form onSubmit={handleOnSubmit} className={s.form}>
+                <div className={s.firstContainer}>
 
-                <label htmlFor="title">Title </label>
-                <input className={errors.title && s.inputDanger} type="text" onChange={handleOnChange} name="title" placeholder="Enter a title.." defaultValue={input.title} />
-                {errors.title && /*[<br />,*/ <span className={s.danger}>{errors.title}</span>/*]*/}
-                <br />
-                <label htmlFor="image">Image url (optional)</label>
-                <input className={errors.image && s.inputDanger} type='url' onChange={handleOnChange} name="image" placeholder="Enter an image url.." defaultValue={input.image} />
-                <br />
-                <label htmlFor="summary">Summary </label>
-                <input className={errors.summary && s.inputDanger} type="text" onChange={handleOnChange} name="summary" placeholder="Enter a summary.." defaultValue={input.summary} />
-                {errors.summary && /*[<br />,*/ <span className={s.danger}>{errors.summary}</span>/*]*/}
-                <br />
-                <label htmlFor="spoonacularScore">Spoonacular Score </label>
-                <input className={errors.spoonacularScore && s.inputDanger} type='range' min={'0'} max={'100'} onChange={handleOnChange} name="spoonacularScore" placeholder="Enter a score.." defaultValue={input.spoonacularScore} />
-                {errors.spoonacularScore && /*[<br />,*/ <span className={s.danger}>{errors.spoonacularScore}</span>/*]*/}
-                <br />
-                <label htmlFor="healthScore">Health Score </label>
-                <input className={errors.healthScore && s.inputDanger} type='range' min={'0'} max={'100'} onChange={handleOnChange} name="healthScore" placeholder="Enter a health score.." defaultValue={input.healthScore} />
-                {errors.healthScore && /*[<br />,*/ <span className={s.danger}>{errors.healthScore}</span>/*]*/}
-                <br />
-                <label htmlFor="diets">Diets </label>
-                {errors.diets && /*[<br />,*/ <span className={s.danger}>{errors.diets}</span>/*]*/}
-                {/* <input type="text" onChange={handleOnChange} name="diets" placeholder="Enter a type of diet.." defaultValue={newRecipe.diets} /> */}
-                {typesOfDiets.map(type => (
-                    <div key={type.name}>
-                        <input className={errors.diets && s.inputDanger} type="checkbox" onChange={handleOnCheck} name="diets" defaultValue={type.name} />
-                        <label htmlFor={type.name}>{type.name.toUpperCase()}</label>
+                    <div className={s.simpleInputs}>
+                        <label className={s.labelText} htmlFor="title">Title </label>
+                        <div>
+                            <input
+                                className={s.inputForm}
+                                type="text"
+                                onChange={handleOnChange}
+                                name="title"
+                                placeholder="Enter a title.."
+                                defaultValue={input.title} />
+                        </div>
+                        {errors.title && <span className={s.dangerText}>{errors.title}</span>}
+                    </div>
+                    <div className={s.simpleInputs}>
+                        <label className={s.labelText} htmlFor="image">Image url (optional)</label>
+                        <div className={s.inputDiv}>
+                            <input
+                                className={s.inputForm}
+                                type='url'
+                                onChange={handleOnChange}
+                                name="image"
+                                placeholder="Enter an image url.."
+                                defaultValue={input.image} />
+                        </div>
+                    </div>
+                    <div className={s.simpleInputs}>
+                        <label className={s.labelText} htmlFor="summary">Summary </label>
+                        <div className={s.inputDiv}>
+                            <input
+                                className={s.inputForm}
+                                type="text"
+                                onChange={handleOnChange}
+                                name="summary"
+                                placeholder="Enter a summary.."
+                                defaultValue={input.summary} />
+                        </div>
+                        {errors.summary && <span className={s.dangerText}>{errors.summary}</span>}
+                    </div>
+                    <div className={s.simpleInputs}>
+                        <label className={s.labelText} htmlFor="spoonacularScore">Spoonacular Score </label>
+                        <div className={s.inputDiv}>
+                            <input
+                                className={s.inputForm}
+                                type='range'
+                                min={'0'}
+                                max={'100'}
+                                onChange={handleOnChange}
+                                name="spoonacularScore"
+                                placeholder="Enter a score.."
+                                defaultValue={input.spoonacularScore} />
+                        </div>
+                        {errors.spoonacularScore && <span className={s.dangerText}>{errors.spoonacularScore}</span>}
+                    </div>
+                    <div className={s.simpleInputs}>
+                        <label className={s.labelText} htmlFor="healthScore">Health Score </label>
+                        <div className={s.inputDiv}>
+                            <input
+                                className={s.inputForm}
+                                type='range'
+                                min={'0'}
+                                max={'100'}
+                                onChange={handleOnChange}
+                                name="healthScore"
+                                placeholder="Enter a health score.."
+                                defaultValue={input.healthScore} />
+                        </div>
+                        {errors.healthScore && <span className={s.dangerText}>{errors.healthScore}</span>}
+                    </div>
+                </div>
+
+                {/* diets */}
+                <div className={s.secondContainer}>
+                    <div>
+                        <label className={s.labelText} htmlFor="diets">Diets </label>
+                        {errors.diets && <span className={s.dangerText}>{errors.diets}</span>}
+                        <div className={s.checkboxGroup}>
+                            {typesOfDiets.map(type => (
+                                <div
+                                    className={s.checkboxElement}
+                                    key={type.name}>
+                                    <label className={s.checkboxLabel} htmlFor={type.name}>
+                                        <input
+                                            className={s.checkboxInput}
+                                            type="checkbox"
+                                            onChange={handleOnCheck}
+                                            name="diets"
+                                            defaultValue={type.name} />
+                                        {type.name.toUpperCase()}</label>
+                                </div>
+
+                            ))}
+                        </div>
                     </div>
 
-                ))}
-                <br />
-                <label htmlFor="steps">Steps </label>
-                <div>
-                    <p>Create your instructions</p>
-                    <input /*className={errors.steps && s.inputDanger}*/ type="text" onChange={handleOnChange} name="steps" placeholder="Enter steps.." defaultValue={input.steps} />
-                    {errors.steps && /*[<br />,*/ <span className={s.danger}>{errors.steps}</span>/*]*/}
-                    <button onClick={addStep}>Add</button>
-                </div>
-                <div>
-                    {stepList.map((el) => (
-                        <div key={el.number}>
-                            <p>{el.number}. {el.step}</p>
-                            <button onClick={(e) => deleteStep(e, el.number)}>x</button>
-                        </div>
-                    ))}
                 </div>
 
-                <button type="submit" disabled={disabledButton}> Create </button>
+                {/* steps */}
+                <div className={s.secondContainer}>
+
+                    <div className={s.allStepParts}>
+                        <label className={s.labelText} htmlFor="steps">Steps </label>
+                        <div className={s.stepsCreate}>
+                            <p>Create your instructions</p>
+                            <div className={s.addStepsGroup}>
+                                <input
+                                    /*className={errors.steps && s.inputDanger}*/
+                                    type="text"
+                                    onChange={handleOnChange}
+                                    name="steps"
+                                    placeholder="Enter steps.."
+                                    className={s.inputForm}
+                                    value={input.steps} />
+                                {/* {errors.steps && <span className={s.dangerText}>{errors.steps}</span>} */}
+                                <button
+                                    onClick={addStep}
+                                    className={s.stepButton}>Add</button>
+                            </div>
+                        </div>
+                        <div className={s.stepList}>
+                            {stepList.map((el) => (
+                                <div key={el.number} className={s.eachStep}>
+                                    <p>{el.number}. {el.step}</p>
+                                    <button
+                                        className={s.deleteBtn}
+                                        onClick={(e) => deleteStep(e, el.number)}>
+                                        x</button>
+                                </div>
+                            ))}
+                            {errors.steps && <span className={s.dangerText}>{errors.steps}</span>}
+                        </div>
+                    </div>
+                </div>
+                <div className={s.submitButton}>
+                    <button
+                        type="submit"
+                        disabled={disabledButton}
+                        className={s.button}>
+                        Create </button>
+                </div>
             </form>
         </div>
     )

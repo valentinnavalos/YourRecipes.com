@@ -1,0 +1,46 @@
+.formContainer {
+  display: flex;
+  flex-direction: row;
+}
+
+.searchBarInput {
+  text-decoration: none;
+  width: auto;
+  height: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.25),
+    rgba(43, 9, 4, 0.25)
+  );
+  border: 2px solid rgba(233, 195, 182, 0.55);
+  font-size: 1.3rem;
+  color: rgba(233, 195, 182, 0.55);
+}
+
+.searchBarButton {
+  text-decoration: none;
+  width: auto;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.85),
+    rgba(43, 9, 4, 0.85)
+  );
+  border: 2px solid rgba(233, 195, 182, 0.55);
+  font-size: 1.3rem;
+  color: rgba(233, 195, 182, 0.55);
+  cursor: pointer;
+}
+
+.searchBarButton:hover {
+  transition: 0.4s;
+  box-shadow: 0 0 20px 15px rgb(139 136 89 / 45%);
+}

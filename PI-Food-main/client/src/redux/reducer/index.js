@@ -1,5 +1,7 @@
-import { ASCENDENTE } from "../../components/Order/constants/sort";
-import { LOWEST } from "../../components/Order/constants/sortByScore";
+// import { ASCENDENTE } from "../../components/Order/constants/sort";
+// import { LOWEST } from "../../components/Order/constants/sortByScore";
+import { ASCENDENTE } from "../../components/order/constants/sort";
+import { LOWEST } from "../../components/order/constants/sortByScore";
 import {
   GET_RECIPES,
   SEARCH_RECIPES,
