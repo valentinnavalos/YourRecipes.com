@@ -33,3 +33,27 @@
   border-radius: 7px;
   border: 1px solid #000;
 }
+
+.loading{
+  color: bisque;
+  padding: 10px;
+  margin: 20px;
+  background-color: rgba(10, 7, 12, 0.78);
+  display: block;
+  width: 50%;
+  margin: 150px auto 0 auto;
+  border-radius: 5px;
+  border: 1px dashed white;
+}
+
+.notFound{
+  color: bisque;
+  padding: 10px;
+  margin: 20px;
+  background-color: rgba(10, 7, 12, 0.78);
+  display: block;
+  width: 50%;
+  margin: 150px auto 0 auto;
+  border-radius: 5px;
+  border: 1px solid white;
+}

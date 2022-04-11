@@ -14,6 +14,8 @@ export default function Cards({ currentRecipes }) {
     //     dispatch(getRecipes());
     // }, [dispatch]); //---> componenteDidUpdate()
 
+    // console.log(currentRecipes)
+
     return (
         <div>
             {currentRecipes.length ? (
@@ -23,7 +25,7 @@ export default function Cards({ currentRecipes }) {
                     ))}
                 </div>
             ) : (
-                <span>Loading...</span>
+                <span className={s.notFound}>Recipes not found.</span>
             )}
         </div>
     )

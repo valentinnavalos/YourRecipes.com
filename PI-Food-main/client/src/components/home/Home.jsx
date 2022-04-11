@@ -14,12 +14,18 @@ export default function Home() {
     const [currentPage, setCurrentPage] = useState(1);
     const [itemsPerPage] = useState(9);
 
-    const { filteredRecipes } = useSelector(state => state);
+    const [loaded, setLoaded] = useState(false);
+
+    const { filteredRecipes, typesOfDiets } = useSelector(state => state);
 
     useEffect(() => {
-        dispatch(getRecipes());
-        dispatch(getTypesOfDiets())
-    }, [dispatch]);
+        if (!typesOfDiets.length) {
+            Promise.all([dispatch(getRecipes()), dispatch(getTypesOfDiets())])
+                .then(() => setLoaded(true));
+        } else {
+            dispatch(getRecipes()).then(() => setLoaded(true));
+        }
+    }, []);
 
     function paginate(numberOfPage) {
         setCurrentPage(numberOfPage)
@@ -32,24 +38,34 @@ export default function Home() {
     return (
         <div>
             <NavBar />
-            <div className={s.homePageContainer}>
-                <div className={s.ordersContainer}>
-                    <Order />
-                </div>
-                <div className={s.cardsContainer}>
-                    {currentRecipes.length ? <Cards currentRecipes={currentRecipes} /> : <span>Recipe not found.</span>}
-                    {/* <Cards currentRecipes={currentRecipes} /> */}
-                </div>
-                <div className={s.paginateContainer}>
-                    <Pagination
-                        lengthAllRecipes={filteredRecipes.length}
-                        paginateFn={paginate}
-                        itemsPerPage={itemsPerPage}
-                        currentPage={currentPage}
-                    />
-                </div>
+            {loaded ? (
 
-            </div>
+                <div className={s.homePageContainer}>
+                    <div className={s.ordersContainer}>
+                        <Order />
+                    </div>
+                    <div className={s.cardsContainer}>
+                        {currentRecipes.length ? (
+                            <div>
+                                <Cards currentRecipes={currentRecipes} />
+                                <div className={s.paginateContainer}>
+                                    <Pagination
+                                        lengthAllRecipes={filteredRecipes.length}
+                                        paginateFn={paginate}
+                                        itemsPerPage={itemsPerPage}
+                                        currentPage={currentPage}
+                                    />
+                                </div>
+                            </div>
+                        ) : (
+                            <span className={s.notFound} >Recipe not found.</span>
+                        )}
+                    </div>
+
+                </div>
+            ) : (
+                <span className={s.loading}>Loading...</span>
+            )})
         </div>
     )
 }

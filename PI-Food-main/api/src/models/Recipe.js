@@ -47,10 +47,6 @@ module.exports = (sequelize) => {
       type: DataTypes.INTEGER,
       allowNull: false,
       validate: {
-      //   isDecimal: {
-      //     args: [true],
-      //     msg: "It must be a decimal number.",
-      //   },
         max: {
           args: [100],
           msg: "It cannot be more than 100.",
@@ -63,15 +59,11 @@ module.exports = (sequelize) => {
     },
     steps: {
       type: DataTypes.JSON,
-      // type: DataTypes.TEXT,
       allowNull: false,
     },
     image: {
       type: DataTypes.TEXT,
       allowNull: true,
     },
-    // diets: {
-    //   type: DataTypes.ARRAY(DataTypes.STRING),
-    // },
   });
 };

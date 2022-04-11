@@ -3,13 +3,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypesOfDiets, postNewRecipe } from "../../redux/actions";
 // import { validateForm } from "./validateForm";
 // import NavBar from "../navbar/NavBar";
+import defaultImg from './../../images/noImageAvailable.png';
+// let defaultImg = 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png'
 import s from './Form.module.css';
 import { Link, useHistory } from "react-router-dom";
 
 export default function Form() {
     const [input, setInput] = useState({
         title: '',
-        image: 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png',
+        image: '',
         summary: '',
         spoonacularScore: 50,
         healthScore: 50,
@@ -41,7 +43,9 @@ export default function Form() {
     }, [errors, input, stepList]);
 
     useEffect(() => {
-        dispatch(getTypesOfDiets())
+        if (!typesOfDiets.length) {
+            dispatch(getTypesOfDiets());
+        }
     }, [dispatch]);
 
     function validateForm(state) {
@@ -63,7 +67,7 @@ export default function Form() {
         // }
         if (!state.summary) {
             errors.summary = "Summary is required";
-        } else if (!/^[a-zñá-ú\s\d]{10,}$/i.test(state.summary)) {
+        } else if (!/^[a-zñá-ú\s\d.,\/#!$%\^&\*;:{}=\-_`~()”“"…¿?¡']{10,}$/i.test(state.summary)) {
             // /^[a-zñ|A-ZÑ\s\d]{10,}$/
             errors.summary = "Summary must be at least 10 characters long";
         }
@@ -167,34 +171,11 @@ export default function Form() {
             stepList.length &&
             !Object.keys(errors).length
         ) {
-            // if (input.image === '') {
-            //     console.log('entra')
-            //     setInput((prevState) => {
-            //         const imagenPorDefault = {
-            //             ...prevState,
-            //             image: 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png',
-            //         }
-            //         return imagenPorDefault
-            //         //si esto no funciona le seteo una imagen por default
-            //         //cuando creo el state le pongo una imagen por default
-            //     })
-            // input.image = 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png';
-            // }
-            // if (typeof input.spoonacularScore === 'string') {
-            //     setInput({
-            //         ...input,
-            //         spoonacularScore: parseInt(input.spoonacularScore),
-            //     })
-            // }
-            // if (typeof input.healthScore === 'string') {
-            //     setInput({
-            //         ...input,
-            //         healthScore: parseInt(input.healthScore),
-            //     })
-            // }
-            // typeof input.spoonacularScore === 'string' ? input.spoonacularScore = parseInt(input.spoonacularScore) : null;
-            // typeof input.healthScore === 'string' ? input.healthScore = parseInt(input.healthScore) : null;
+            if (!input.image) {
+                input.image = defaultImg;
+            }
             input.steps = stepList;
+            console.log('input', input);
             dispatch(postNewRecipe(input));
             alert("Recipe added succesfully!");
             history.push("/home");
@@ -203,7 +184,7 @@ export default function Form() {
         }
         setInput({
             title: '',
-            image: 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png',
+            image: '',
             summary: '',
             spoonacularScore: 50,
             healthScore: 50,
@@ -217,7 +198,7 @@ export default function Form() {
         <div className={s.mainContainer}>
             <div className={s.formHeader}>
                 <h2>Add a new recipe</h2>
-                <Link to={"/home"}>
+                <Link to={"/home"} className={s.linkButton}>
                     <button className={s.button}>Home</button>
                 </Link>
             </div>
@@ -246,7 +227,9 @@ export default function Form() {
                                 onChange={handleOnChange}
                                 name="image"
                                 placeholder="Enter an image url.."
-                                defaultValue={input.image} />
+                                // defaultValue={input.image} 
+                                value={input.image}
+                            />
                         </div>
                     </div>
                     <div className={s.simpleInputs}>
@@ -323,8 +306,8 @@ export default function Form() {
                 {/* steps */}
                 <div className={s.secondContainer}>
 
+                    <label className={s.labelSteps} htmlFor="steps">Steps </label>
                     <div className={s.allStepParts}>
-                        <label className={s.labelText} htmlFor="steps">Steps </label>
                         <div className={s.stepsCreate}>
                             <p>Create your instructions</p>
                             <div className={s.addStepsGroup}>
@@ -356,12 +339,15 @@ export default function Form() {
                         </div>
                     </div>
                 </div>
-                <div className={s.submitButton}>
-                    <button
-                        type="submit"
-                        disabled={disabledButton}
-                        className={s.button}>
-                        Create </button>
+                <div className={s.secondContainer}>
+
+                    <div className={s.submitButton}>
+                        <button
+                            type="submit"
+                            disabled={disabledButton}
+                            className={s.button}>
+                            Create </button>
+                    </div>
                 </div>
             </form>
         </div>

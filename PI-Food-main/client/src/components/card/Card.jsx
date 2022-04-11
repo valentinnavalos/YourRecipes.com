@@ -8,7 +8,7 @@ export default function Card({ title, image, id, diets }) {
             <Link to={`/recipeDetail/${id}`}>
                 <h4 className={s.cardTitle}>{title}</h4>
             </Link>
-            <img src={image} alt={title} className={s.cardImage}/>
+            <img src={image} alt='No image available.' className={s.cardImage}/>
             <h5 className={s.cardDiets}>{diets?.join(', ')}</h5>
 
         </div>

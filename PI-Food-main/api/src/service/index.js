@@ -5,43 +5,17 @@ const { Recipe, Type } = require("./../db");
 const apiKey = process.env.API_KEY;
 
 const getApiInfo = async () => {
-  //#region
-  //Se podria buscar por id, e ir pusheandolo en un array. Devolver el array.
-  // try {
-  //   let id = 1;
-  //   let result = [];
-  //   while (id < 100) {
-  //     const apiUrl = await axios.get(
-  //       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
-  //     );
-  //     const apiInfo = await apiUrl.data;
-
-  //     const recipe = [
-  //       {
-  //         id: apiInfo.id,
-  //         title: apiInfo.title,
-  //         summary: apiInfo.summary,
-  //         spoonacularScore: apiInfo.spoonacularScore,
-  //         healthScore: apiInfo.healthScore,
-  //         steps: apiInfo.analyzedInstructions[0]?.steps,
-  //       },
-  //     ];
-  //     result.push(recipe);
-  //     id++;
-  //   }
-
-  //   return result;
-  // } catch {
-  //   result.push({ msj: "The recipe does not exist." });
-  //   return result;
-  // }
-  //#endregion
-
   try {
     const apiUrl = await axios.get(
       `https://api.spoonacular.com/recipes/complexSearch?apiKey=${apiKey}&addRecipeInformation=true&number=100`
     );
     const apiInfo = await apiUrl.data.results.map((r) => {
+      let arrayDiets = [];
+      arrayDiets = r.diets;
+      if (r.vegetarian) arrayDiets.push("vegetarian");
+      if (r.vegan && !arrayDiets.includes("vegan")) arrayDiets.push("vegan");
+      if (r.glutenFree && !arrayDiets.includes("vegan"))
+        arrayDiets.push("gluten free");
       return {
         id: r.id,
         title: r.title,
@@ -57,7 +31,10 @@ const getApiInfo = async () => {
           };
         }),
         image: r.image,
-        diets: r.diets,
+        //diets tiene que ser un array con todas las dietas que tiene la receta.
+        // diets: r.diets,
+        // diets: flag? r.diets.push("vegetarian"): r.diets,
+        diets: arrayDiets,
       };
     });
     // console.log(apiInfo);
@@ -74,6 +51,15 @@ const getApiInfoByPk = async (id) => {
     );
 
     const apiInfo = await apiUrl.data;
+
+    let arrayDiets = [];
+    arrayDiets = apiInfo.diets;
+    if (apiInfo.vegetarian && !arrayDiets.includes("vegetarian"))
+      arrayDiets.push("vegetarian");
+    if (apiInfo.vegan && !arrayDiets.includes("vegan"))
+      arrayDiets.push("vegan");
+    if (apiInfo.glutenFree && !arrayDiets.includes("gluten free"))
+      arrayDiets.push("gluten free");
 
     const result = {
       id: apiInfo.id,
@@ -92,7 +78,7 @@ const getApiInfoByPk = async (id) => {
         };
       }),
       image: apiInfo.image ? apiInfo.image : "No image.",
-      diets: apiInfo.diets ? apiInfo.diets : "No diets.",
+      diets: arrayDiets.length ? arrayDiets : "No diets.",
     };
 
     // console.log(result);

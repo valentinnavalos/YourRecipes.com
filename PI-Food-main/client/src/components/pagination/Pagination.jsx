@@ -8,7 +8,7 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
 
     function previousPageButton() {
         if (currentPage > 1) {
-            console.log(currentPage)
+            // console.log(currentPage)
             setDisabledPrevButton(false);
             paginateFn(currentPage - 1);
             if (disabledNextButton) {
@@ -21,7 +21,7 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
 
     function nextPageButton() {
         if (currentPage < pageNumbers.length) {
-            console.log(currentPage)
+            // console.log(currentPage)
             paginateFn(currentPage + 1);
             setDisabledNextButton(false)
             if (disabledPrevButton) {
@@ -31,6 +31,13 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
             setDisabledNextButton(true)
         }
     }
+
+    // function handleOnClick(e) {
+    //     e.preventDefault();
+    //     paginateFn(parseInt(e.target.name));
+    // }
+
+
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(lengthAllRecipes / itemsPerPage); i++) {
@@ -46,7 +53,7 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
             <div className={s.numContainer}>
                 {pageNumbers?.map(el => {
                     return (
-                        <span key={el} className={s.pageNumber}>{el}</span>
+                        <span key={el} className={s.pageNumber} name={el} /*onClick={handleOnClick}*/>{el}</span>
                     )
                 })}
             </div>

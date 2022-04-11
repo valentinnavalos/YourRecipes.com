@@ -28,13 +28,13 @@ export default function Detail() {
                 <div className={s.detailContainer}>
                     <div className={s.detailHeader}>
                         <h2>{recipeDetail.title}</h2>
-                        <Link to={'/home'}>
+                        <Link to={'/home'} className={s.linkButton}>
                             <button className={s.button}>Home</button>
                         </Link>
                     </div>
                     <div className={s.firstContainer}>
                         <div className={s.imgContainer}>
-                            <img src={recipeDetail.image} alt="imagen" />
+                            <img src={recipeDetail.image} alt="No Image Available" className={s.imgContainer}/>
                         </div>
                         <div className={s.scoresContainer}>
                             {recipeDetail.spoonacularScore ? <p className={s.scoresText}>Spoonacular Score: {recipeDetail.spoonacularScore}</p> : <p>No score available.</p>}
