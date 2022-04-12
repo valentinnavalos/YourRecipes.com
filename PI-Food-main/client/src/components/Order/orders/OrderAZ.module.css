@@ -1,0 +1,11 @@
+.orderSelect {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+/* .orderSelect:hover{
+    background-color: brown;
+} */

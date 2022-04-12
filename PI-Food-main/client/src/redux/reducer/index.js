@@ -1,5 +1,3 @@
-// import { ASCENDENTE } from "../../components/Order/constants/sort";
-// import { LOWEST } from "../../components/Order/constants/sortByScore";
 import { ASCENDENTE } from "../../components/order/constants/sort";
 import { LOWEST } from "../../components/order/constants/sortByScore";
 import {
@@ -12,7 +10,6 @@ import {
   FILTER_BY_TYPE_OF_DIET,
   SORT,
   SORT_BY_SCORE,
-  // SEARCH_RECIPES_FAIL,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -20,7 +17,6 @@ const initialState = {
   filteredRecipes: [],
   recipeDetail: {},
   typesOfDiets: [],
-  // errorMsg: "",
 };
 
 export default function reducer(state = initialState, action) {
@@ -33,19 +29,11 @@ export default function reducer(state = initialState, action) {
       };
     }
     case SEARCH_RECIPES: {
-      console.log("reducer , payload", action.payload);
       return {
         ...state,
         filteredRecipes: action.payload,
       };
     }
-    // case SEARCH_RECIPES_FAIL: {
-    //   console.log("reducer , payload", action.payload);
-    //   return {
-    //     ...state,
-    //     errorMsg: action.payload,
-    //   };
-    // }
     case GET_RECIPE_DETAIL: {
       return {
         ...state,
@@ -71,13 +59,7 @@ export default function reducer(state = initialState, action) {
       };
     }
     case FILTER_BY_TYPE_OF_DIET: {
-      // let filtered = state.recipes.filter((el) => {
-      //   if (el.diets?.includes(action.payload)) {
-      //     return el;
-      //   }
-      //   return null;
-      // });
-      let filtered = state.recipes.filter((el) => el.diets? el.diets.includes(action.payload)? el : null: null);
+      let filtered = state.recipes.filter((el) => el.diets.length? el.diets.includes(action.payload)? el : null: null);
       return {
         ...state,
         filteredRecipes: filtered,

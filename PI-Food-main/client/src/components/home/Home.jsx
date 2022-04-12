@@ -5,8 +5,6 @@ import Cards from "../cards/Cards";
 import NavBar from "../navbar/NavBar";
 import Order from "../order/Order";
 import Pagination from "../pagination/Pagination";
-// import Reset from "../order/orders/Reset";
-// import SearchBar from "../searchbar/SearchBar";
 import s from "./Home.module.css";
 
 export default function Home() {
@@ -25,7 +23,11 @@ export default function Home() {
         } else {
             dispatch(getRecipes()).then(() => setLoaded(true));
         }
-    }, []);
+    }, [dispatch, typesOfDiets.length]);
+
+    useEffect(() =>{
+        setCurrentPage(1);
+    }, [filteredRecipes])
 
     function paginate(numberOfPage) {
         setCurrentPage(numberOfPage)
@@ -34,7 +36,7 @@ export default function Home() {
     const indexOfLastRecipe = currentPage * itemsPerPage;
     const indexOfFirstRecipe = indexOfLastRecipe - itemsPerPage;
     const currentRecipes = filteredRecipes?.slice(indexOfFirstRecipe, indexOfLastRecipe);
-    // console.log(currentRecipes);
+
     return (
         <div>
             <NavBar />

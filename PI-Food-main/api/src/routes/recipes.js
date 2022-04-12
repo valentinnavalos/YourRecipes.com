@@ -4,8 +4,7 @@ const {
   detalleRecipeByID,
   allRecipes,
 } = require("../controllers/recipes");
-// const Sequelize = require("sequelize");
-// const Op = Sequelize.Op;
+
 
 const router = Router();
 

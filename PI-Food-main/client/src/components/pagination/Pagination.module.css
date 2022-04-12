@@ -7,21 +7,20 @@
 }
 
 .paginationBtn {
-  text-decoration: none;
   width: auto;
-  height: 28px;
+  /* height: 28px; */
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 5px;
-  background: linear-gradient(
-    to left,
-    rgba(210, 73, 54, 0.85),
-    rgba(43, 9, 4, 0.85)
-  );
+  /* background: linear-gradient( */
+    /* to left, */
+    /* rgba(210, 73, 54, 0.85), */
+    /* rgba(43, 9, 4, 0.85) */
+  /* ); */
   border: 2px solid rgba(233, 195, 182, 0.55);
-  font-size: 1rem;
-  color: rgba(233, 195, 182, 0.55);
+  /* font-size: 1rem; */
+  /* color: rgba(233, 195, 182, 0.55); */
   cursor: pointer;
 }
 
@@ -56,3 +55,7 @@
     align-items: center;
     margin: 0 1.2rem;
 }
+
+/* .pageNumber{
+    cursor: pointer;
+} */

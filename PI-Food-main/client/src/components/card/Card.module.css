@@ -1,8 +1,6 @@
 .cardContainer{
-    width: 400px;
-    height: 380px;
-    /* width: 350px;
-    height: 330px; */
+    width: 305px;
+    height: 285px;
     display: flex;
     flex-direction: column;
     border: 1rem;
@@ -15,6 +13,7 @@
     );
     border-radius: 5px;
     border: 1px solid #000;
+    padding: 10px;
 }
 
 .cardContainer:hover{
@@ -27,7 +26,7 @@
 }
 
 .cardTitle{
-    font-size: 1.1rem;
+    font-size: 1rem;
     font-weight: bold;
     margin-bottom: 0.5rem;
     color: bisque;
@@ -37,12 +36,17 @@
     align-items: center;
     border-radius: 5px;
     margin: auto;
-    padding: 0.5rem;
+    padding: 1rem;
+}
+
+.linkTitle{
+    text-decoration: none;
 }
 
 .cardImage{
-    width: 295px;
-    height: 198px;
+    width: 250px;
+    height: 156px;
+    opacity: 0.8;
     border-radius: 5px;
     border: 1px solid #000;
 }
@@ -51,9 +55,11 @@
     color: bisque;
     background: rgba(5, 7, 12, 0.75);
     border-radius: 5px;
-    padding: 0.3rem;
-    width: 65%;
+    padding: 0.2rem;
+    width: 70%;
     justify-content: center;
     align-items: center;
     height: fit-content;
+    font-size: 0.75rem;
+    margin: 15px 0;
 }

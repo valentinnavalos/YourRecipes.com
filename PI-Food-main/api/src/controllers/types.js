@@ -13,7 +13,7 @@ const findOrCreateTypesOfDiets = async (req, res, next) => {
     const apiDiets = apiInfo?.map((r) => r.diets);
 
     const dietsList = apiDiets.flat().concat("ketogenic", "vegetarian"); //--> elimino el 2do nivel de []
-    // // const dietsList = apiDiets.join(",").split(",");
+    // const dietsList = apiDiets.join(",").split(",");
 
     let dietsListFiltered = [];
     dietsList.forEach((diet) => {
@@ -23,8 +23,6 @@ const findOrCreateTypesOfDiets = async (req, res, next) => {
     });
 
     // let dietsListFiltered = new Set(dietsList);
-
-    // res.json({ dietsList: Array.from(dietsListFiltered) });
 
     dietsListFiltered.forEach(async (diet) => {
       await Type.findOrCreate({

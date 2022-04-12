@@ -6,7 +6,7 @@ import s from "./Order.module.css";
 export default function Order() {
     return (
         <div className={s.ordersContainer}>
-            <span>
+            <span className={s.eachOrder}>
                 <OrderAZ />
             </span>
             <span>

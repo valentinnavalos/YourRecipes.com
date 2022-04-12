@@ -17,7 +17,6 @@ export default function NavBar() {
 
     return (
         <div className={s.navbar}>
-            {/* <div className={s.navButtons}> */}
                 <div className={s.imgContainer}>
                     <Link to='/'>
                         <img src={logo} alt="logo" className={s.logo} />
@@ -36,7 +35,6 @@ export default function NavBar() {
                 <div className={s.searchBarCointainer}>
                     <SearchBar />
                 </div>
-            {/* </div> */}
         </div>
     )
 }

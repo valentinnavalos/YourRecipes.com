@@ -14,7 +14,6 @@ const listadoRecipeByQuery = async (req, res, next) => {
         return el;
       }
     });
-    // console.log('arrayFiltered from listadoRecipeByQuery',arrayFiltered);
 
     arrayFiltered.length
       ? res.status(200).json(arrayFiltered)

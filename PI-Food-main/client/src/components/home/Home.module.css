@@ -3,7 +3,7 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 100vw;
+  /* width: 100vw; */
   position: relative;
   margin: 10px 0;
 }
@@ -13,7 +13,7 @@
   flex-direction: row;
   justify-content: space-around;
   align-items: center;
-  width: 1000px;
+  /* width: 1000px; */
   margin: 0 auto;
 }
 
@@ -22,7 +22,6 @@
   flex-direction: row;
   width: 600px;
   height: 50px;
-  border: 1rem;
   justify-content: center;
   align-items: center;
   background: linear-gradient(
@@ -30,6 +29,7 @@
     rgba(210, 73, 54, 0.85),
     rgba(43, 9, 4, 0.85)
   );
+  margin: 8px;
   border-radius: 7px;
   border: 1px solid #000;
 }
@@ -40,7 +40,8 @@
   margin: 20px;
   background-color: rgba(10, 7, 12, 0.78);
   display: block;
-  width: 50%;
+  /* width: 50%; */
+  width: 300px;
   margin: 150px auto 0 auto;
   border-radius: 5px;
   border: 1px dashed white;
@@ -52,7 +53,8 @@
   margin: 20px;
   background-color: rgba(10, 7, 12, 0.78);
   display: block;
-  width: 50%;
+  /* width: 50%; */
+  width: 300px;
   margin: 150px auto 0 auto;
   border-radius: 5px;
   border: 1px solid white;

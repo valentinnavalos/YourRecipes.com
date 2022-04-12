@@ -1,10 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getTypesOfDiets, postNewRecipe } from "../../redux/actions";
-// import { validateForm } from "./validateForm";
-// import NavBar from "../navbar/NavBar";
 import defaultImg from './../../images/noImageAvailable.png';
-// let defaultImg = 'https://149348893.v2.pressablecdn.com/wp-content/uploads/2019/03/no-image-available.png'
 import s from './Form.module.css';
 import { Link, useHistory } from "react-router-dom";
 
@@ -46,10 +43,11 @@ export default function Form() {
         if (!typesOfDiets.length) {
             dispatch(getTypesOfDiets());
         }
-    }, [dispatch]);
+    }, [dispatch, typesOfDiets.length]);
 
     function validateForm(state) {
         const errors = {};
+        // title
         if (!state.title) {
             errors.title = "Title is required";
             // } else if (!/^[\d]$/.test(state.title)) {
@@ -58,34 +56,36 @@ export default function Form() {
             // /^[a-zñ|A-ZÑ\s]{6,}$/
             errors.title = "Title must be a string of at least 6 characters long";
         }
-        // if (!state.image) {
-        //   errors.image = "Image is required";
-        // } else if (
-        //   !/(http(s?):)([/|.|\w|\s|-])*\.(?:jpg|gif|png)/.test(state.image)
-        // ) {
-        //   errors.image = "Image must be a valid URL";
-        // }
+        // image
+        if (state.image && !/(http(s?):)([/|.|\w|\s|%-])*\.(?:jpg|gif|png)/i.test(state.image)) {
+            errors.image = "It must be a valid image URL";
+        }
+        // summary
         if (!state.summary) {
             errors.summary = "Summary is required";
-        } else if (!/^[a-zñá-ú\s\d.,\/#!$%\^&\*;:{}=\-_`~()”“"…¿?¡']{10,}$/i.test(state.summary)) {
+        } else if (!/^[a-zñá-ú\s\d.,#!$%&;:{}=\-_`~()”“"…¿?¡']{10,}$/i.test(state.summary)) {
             // /^[a-zñ|A-ZÑ\s\d]{10,}$/
             errors.summary = "Summary must be at least 10 characters long";
         }
+        // spoonacularScore
         if (!state.spoonacularScore) {
             errors.spoonacularScore = "Spoonacular score is required";
         } else if (!/[^0-100]/.test(state.spoonacularScore)) {
             errors.spoonacularScore = "Spoonacular score must be between 0 and 100";
         }
+        // healthScore
         if (!state.healthScore) {
             errors.healthScore = "Health score is required";
         } else if (!/[^0-100]/.test(state.healthScore)) {
             errors.healthScore = "Health score must be between 0 and 100";
         }
+        // diets
         if (!state.diets) {
             errors.diets = "Diets is required";
         } else if (!/\w/.test(state.diets)) {
             errors.diets = "Diets must be at least one";
         }
+        // steps
         if (!stepList.length) {
             errors.steps = "Steps must be at least one";
         }
@@ -116,6 +116,10 @@ export default function Form() {
                 ...input,
                 diets: [...input.diets, e.target.value],
             });
+            // setErrors({
+            //     ...errors,
+            //     diets: '',
+            // })
         } else {
             setInput({
                 ...input,
@@ -138,7 +142,10 @@ export default function Form() {
                 ...input,
                 steps: '',
             });
-
+            setErrors({
+                ...errors,
+                steps: '',
+            })
         }
 
     }
@@ -177,10 +184,10 @@ export default function Form() {
             input.steps = stepList;
             console.log('input', input);
             dispatch(postNewRecipe(input));
-            alert("Recipe added succesfully!");
+            alert("Recipe created succesfully!");
             history.push("/home");
         } else {
-            alert("Please, fill all the fields correctly!");
+            alert("Please complete all fields correctly!");
         }
         setInput({
             title: '',
@@ -227,10 +234,10 @@ export default function Form() {
                                 onChange={handleOnChange}
                                 name="image"
                                 placeholder="Enter an image url.."
-                                // defaultValue={input.image} 
                                 value={input.image}
                             />
                         </div>
+                        {errors.image && <span className={s.dangerText}>{errors.image}</span>}
                     </div>
                     <div className={s.simpleInputs}>
                         <label className={s.labelText} htmlFor="summary">Summary </label>
@@ -293,7 +300,8 @@ export default function Form() {
                                             type="checkbox"
                                             onChange={handleOnCheck}
                                             name="diets"
-                                            defaultValue={type.name} />
+                                            // defaultValue={type.name} 
+                                            value={type.name}/>
                                         {type.name.toUpperCase()}</label>
                                 </div>
 

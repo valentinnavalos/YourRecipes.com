@@ -1,6 +1,7 @@
 import { getRecipes, sortRecipesByScore } from "../../../redux/actions";
 import { useDispatch } from "react-redux";
 import { HIGHEST, LOWEST } from "../constants/sortByScore";
+import s from "./OrderScore.module.css";
 
 export default function OrderScore() {
 
@@ -13,7 +14,7 @@ export default function OrderScore() {
 
     return (
         <div>
-            <select onChange={handleOnChange}>
+            <select onChange={handleOnChange} className={s.orderSelect}>
                 <option value="">Order by Score</option>
                 <option value={HIGHEST}>Highest Score</option>
                 <option value={LOWEST}>Lowest Score</option>

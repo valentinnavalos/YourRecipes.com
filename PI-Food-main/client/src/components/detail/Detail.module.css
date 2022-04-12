@@ -51,11 +51,10 @@
 }
 
 .firstContainer {
+  width: 100%;
   display: flex;
   align-items: center;
   justify-content: space-between;
-
-  width: 100%;
 }
 
 .imgContainer {
@@ -63,11 +62,25 @@
   border-radius: 5px;
   opacity: 0.8;
   max-width: 500px;
-  max-height: 550px;
+  max-height: 360px;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
 }
 
 .imgContainer:hover {
   transform: scale(1.02);
+}
+
+.image{
+  /* width: 100%; */
+  /* height: 100%; */
+  max-width: 500px;
+  max-height: 360px;
+  width: 500px;
+  height: 360px;
+  border-radius: 5px;
 }
 
 .scoresContainer {
@@ -117,7 +130,9 @@
 .infoContainer {
   background-color: #2e2e2e;
   padding: 0.1rem 2rem;
-  margin-top: 1rem;
+  /* margin-top: 1rem; */
+  margin: 0.5rem;
   border-radius: 3px;
+  min-width: 720px;
   text-align: justify
 }

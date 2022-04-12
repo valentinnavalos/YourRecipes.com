@@ -5,7 +5,7 @@ export default function Card({ title, image, id, diets }) {
 
     return (
         <div className={s.cardContainer}>
-            <Link to={`/recipeDetail/${id}`}>
+            <Link to={`/recipeDetail/${id}`} className={s.linkTitle}>
                 <h4 className={s.cardTitle}>{title}</h4>
             </Link>
             <img src={image} alt='No image available.' className={s.cardImage}/>

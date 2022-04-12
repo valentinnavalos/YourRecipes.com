@@ -12,50 +12,39 @@ const createRecipe = async (req, res, next) => {
       diets,
     } = req.body;
 
-    // if (title && summary) {
-    const newRecipe = await Recipe.create({
-      title,
-      summary,
-      spoonacularScore,
-      healthScore,
-      steps,
-      image,
-    });
+    if (
+      title &&
+      image &&
+      summary &&
+      spoonacularScore &&
+      healthScore &&
+      diets.length &&
+      steps.length
+    ) {
+      const newRecipe = await Recipe.create({
+        title,
+        image,
+        summary,
+        spoonacularScore,
+        healthScore,
+        steps,
+      });
 
-    // console.log("createRecipe", diets);
-    
-    // no consologeó el diets
+      //db relation.
+      diets.forEach(async (diet) => {
+        let dietDb = await Type.findAll({ where: { name: diet } });
 
-    // igual diets es un arreglo.
-    // y este arreglo puede tener más de un elemento.
-    // aunque creo que es un array de strings, separadas por comas.
-    // donde el único elemento que hay es una concatenación de dietas.
+        await newRecipe.addTypes(dietDb);
+      });
 
-    // y tendria que ser un array de strings donde cada elemento del
-    // arreglo es un string.
-
-    // const newDiets = diets.split(",");
-    //ahora newDiets es un array de dietas
-    // console.log("newDiets", newDiets);
-
-    diets.forEach(async (diet) => {
-      let dietDb = await Type.findAll({ where: { name: diet } });
-      //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
-
-      await newRecipe.addTypes(dietDb);
-    });
-    // const dietDb = await Type.findAll({ where: { name: diets } });
-    // //busco y traigo los tipos de dieta que coincidan con el array de dietas que viene del body
-
-    res.status(200).json({
-      msg: "Recipe created successfully",
-    });
-
-    // } else {
-    // res.json({
-    // message: "Missing title or summary",
-    // });
-    // }
+      res.status(200).json({
+        msg: "Recipe created successfully",
+      });
+    } else {
+      res.status(404).json({
+        msg: "Missing fields",
+      });
+    }
   } catch (error) {
     next(error);
   }

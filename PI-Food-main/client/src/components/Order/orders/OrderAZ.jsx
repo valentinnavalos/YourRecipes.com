@@ -1,7 +1,7 @@
 import { useDispatch } from "react-redux";
 import { getRecipes, sortRecipes } from "../../../redux/actions";
 import { ASCENDENTE, DESCENDENTE } from "../constants/sort";
-// import { ASCENDENTE, DESCENDENTE } from "../constants/sort";
+import s from "./OrderAZ.module.css";
 
 
 export default function OrderAZ() {
@@ -15,7 +15,7 @@ export default function OrderAZ() {
 
     return (
         <div>
-            <select name="select" onChange={handleOnChange}>
+            <select name="select" onChange={handleOnChange} className={s.orderSelect}>
                 <option value="">Order by Name</option>
                 <option value={ASCENDENTE}>A-Z</option>
                 <option value={DESCENDENTE}>Z-A</option>

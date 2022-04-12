@@ -1,6 +1,5 @@
 const { DataTypes } = require("sequelize");
-// Exportamos una funcion que define el modelo
-// Luego le injectamos la conexion a sequelize.
+
 module.exports = (sequelize) => {
   sequelize.define("recipe", {
     id: {
@@ -18,6 +17,10 @@ module.exports = (sequelize) => {
           msg: "It cannot be an empty string.",
         },
       },
+    },
+    image: {
+      type: DataTypes.TEXT,
+      allowNull: true,
     },
     summary: {
       type: DataTypes.TEXT,
@@ -60,10 +63,6 @@ module.exports = (sequelize) => {
     steps: {
       type: DataTypes.JSON,
       allowNull: false,
-    },
-    image: {
-      type: DataTypes.TEXT,
-      allowNull: true,
     },
   });
 };
