@@ -23,9 +23,9 @@ export default function Home() {
         } else {
             dispatch(getRecipes()).then(() => setLoaded(true));
         }
-    }, [dispatch, typesOfDiets.length]);
+    }, [dispatch]);
 
-    useEffect(() =>{
+    useEffect(() => {
         setCurrentPage(1);
     }, [filteredRecipes])
 

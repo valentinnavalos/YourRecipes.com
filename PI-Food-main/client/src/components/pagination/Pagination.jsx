@@ -32,11 +32,10 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
         }
     }
 
-    // function handleOnClick(e, pageNumber) {
-    //     e.preventDefault();
-    //     paginateFn(pageNumber);
-    //     console.log(currentPage)
-    // }
+    function handleOnClick(e) {
+        e.preventDefault();
+        paginateFn(e.target.innerText);
+    }
 
     const pageNumbers = [];
     for (let i = 1; i <= Math.ceil(lengthAllRecipes / itemsPerPage); i++) {
@@ -52,7 +51,13 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
             <div className={s.numContainer}>
                 {pageNumbers?.map(el => {
                     return (
-                        <span key={el} className={s.pageNumber} name={el} /*onClick={(e, el) => handleOnClick(e, el)}*/>{el}</span>
+                        <span 
+                        key={el} 
+                        className={s.pageNumber} 
+                        name={el} 
+                        onClick={handleOnClick}
+                        value={el}
+                        >{el}</span>
                     )
                 })}
             </div>

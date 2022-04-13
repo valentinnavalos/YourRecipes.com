@@ -80,10 +80,8 @@ export default function Form() {
             errors.healthScore = "Health score must be between 0 and 100";
         }
         // diets
-        if (!state.diets) {
-            errors.diets = "Diets is required";
-        } else if (!/\w/.test(state.diets)) {
-            errors.diets = "Diets must be at least one";
+        if (!state.diets.length) {
+            errors.diets = "At leasth one diet is required";
         }
         // steps
         if (!stepList.length) {
@@ -116,10 +114,6 @@ export default function Form() {
                 ...input,
                 diets: [...input.diets, e.target.value],
             });
-            // setErrors({
-            //     ...errors,
-            //     diets: '',
-            // })
         } else {
             setInput({
                 ...input,
@@ -176,7 +170,13 @@ export default function Form() {
             input.healthScore &&
             input.diets.length &&
             stepList.length &&
-            !Object.keys(errors).length
+            // !Object.keys(errors).length
+            !errors.title &&
+            !errors.summary &&
+            !errors.spoonacularScore &&
+            !errors.healthScore &&
+            !errors.diets &&
+            !errors.steps
         ) {
             if (!input.image) {
                 input.image = defaultImg;
@@ -204,7 +204,7 @@ export default function Form() {
     return (
         <div className={s.mainContainer}>
             <div className={s.formHeader}>
-                <h2>Add a new recipe</h2>
+                <h2 className={s.headerTitle}>Add a new recipe</h2>
                 <Link to={"/home"} className={s.linkButton}>
                     <button className={s.button}>Home</button>
                 </Link>
@@ -353,7 +353,8 @@ export default function Form() {
                         <button
                             type="submit"
                             disabled={disabledButton}
-                            className={s.button}>
+                            className={s.button}
+                            >
                             Create </button>
                     </div>
                 </div>

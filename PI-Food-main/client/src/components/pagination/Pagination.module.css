@@ -45,8 +45,10 @@
 
 .pageNumber{
     color: white;
-    /* cursor: pointer; */
+    cursor: pointer;
 }
+
+/* .pageNumber: */
 
 .numContainer{
     display: flex;
@@ -55,7 +57,3 @@
     align-items: center;
     margin: 0 1.2rem;
 }
-
-/* .pageNumber{
-    cursor: pointer;
-} */

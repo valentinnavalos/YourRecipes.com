@@ -37,6 +37,9 @@
     border-radius: 5px;
     margin: auto;
     padding: 1rem;
+    /*  */
+    text-transform: uppercase;
+    /*  */
 }
 
 .linkTitle{

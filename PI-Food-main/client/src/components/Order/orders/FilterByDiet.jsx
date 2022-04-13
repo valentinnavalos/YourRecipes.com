@@ -3,10 +3,9 @@ import { filterByTypesOfDiets, getRecipes} from '../../../redux/actions';
 import s from './FilterByDiet.module.css';
 
 export default function FilterByDiet() {
-
-    const { typesOfDiets } = useSelector(state => state);
-
+    
     const dispatch = useDispatch();
+    const { typesOfDiets } = useSelector(state => state);
 
     function handleOnChange(e) {
         e.preventDefault();
