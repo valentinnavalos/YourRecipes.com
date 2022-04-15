@@ -31,7 +31,15 @@ const detalleRecipeByID = async (req, res, next) => {
   try {
     const { idReceta } = req.params;
 
-    if (idReceta.length > 10) {
+    !idReceta
+      ? res.status(404).json({ msg: "Please enter a valid id." })
+      : null;
+
+    if (
+      idReceta.length > 10 &&
+      typeof idReceta === "string" &&
+      idReceta.includes("-")
+    ) {
       const dbInfo = await getDbInfoByPk(idReceta);
 
       let resultDbByID = {
@@ -43,14 +51,15 @@ const detalleRecipeByID = async (req, res, next) => {
         healthScore: dbInfo.healthScore,
         steps: dbInfo.steps,
         diets: dbInfo.types.map((t) => t.name),
+        createdInDb: dbInfo.createdInDb,
       };
 
-      dbInfo
+      Object.keys(dbInfo).length
         ? res.status(200).json(resultDbByID)
         : res.status(404).json({ msg: "We can't find that recipe." });
     } else {
       const apiInfo = await getApiInfoByPk(idReceta);
-      apiInfo
+      Object.keys(apiInfo).length
         ? res.status(200).json(apiInfo)
         : res.status(404).json({ msg: "We can't find that recipe." });
     }

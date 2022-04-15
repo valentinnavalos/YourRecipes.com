@@ -28,7 +28,7 @@ export default function NavBar() {
                     </Link>
                 </div>
                 <div className={s.createContainer}>
-                    <Link to={'/create'} className={s.linkButton}>
+                    <Link to={'/recipe/form'} className={s.linkButton}>
                         <button className={s.navbarButton}>Create new recipe</button>
                     </Link>
                 </div>

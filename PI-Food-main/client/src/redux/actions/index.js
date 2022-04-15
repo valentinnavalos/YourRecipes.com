@@ -9,6 +9,9 @@ const {
   FILTER_BY_TYPE_OF_DIET,
   SORT,
   SORT_BY_SCORE,
+  FILTER_BY_CREATION,
+  UPDATE_RECIPE_FROM_DB,
+  DELETE_RECIPE_FROM_DB,
 } = require("./actionTypes");
 // require("dotenv").config();
 
@@ -18,7 +21,7 @@ function getRecipes() {
   return async function (dispatch) {
     try {
       let response = await axios.get("http://localhost:3001/api/recipes/all");
-      console.log("getRecipes", response);
+      // console.log("getRecipes", response);
       dispatch({
         type: GET_RECIPES,
         payload: response.data,
@@ -35,7 +38,7 @@ function searchRecipes(name) {
       let response = await axios.get(
         `http://localhost:3001/api/recipes?name=${name}`
       );
-      console.log("searchRecipes", response.data);
+      // console.log("searchRecipes", response.data);
 
       dispatch({
         type: SEARCH_RECIPES,
@@ -56,7 +59,7 @@ function getRecipeDetail(id) {
     try {
       let response = await axios.get(`http://localhost:3001/api/recipes/${id}`);
 
-      console.log(response.data);
+      // console.log(response.data);
       dispatch({
         type: GET_RECIPE_DETAIL,
         payload: response.data,
@@ -78,12 +81,12 @@ function clearDetail() {
 function postNewRecipe(recipe) {
   return async function (dispatch) {
     try {
-      console.log(recipe);
+      // console.log(recipe);
       let response = await axios.post(
         "http://localhost:3001/api/recipe",
         recipe
       );
-      console.log(response);
+      // console.log(response);
       dispatch({
         type: POST_NEW_RECIPE,
         payload: response.data,
@@ -129,6 +132,42 @@ function sortRecipesByScore(order) {
   };
 }
 
+function filterByCreation(type) {
+  return {
+    type: FILTER_BY_CREATION,
+    payload: type,
+  };
+}
+
+function updateRecipeFromDb(recipeToUpdate) {
+  return async function (dispatch) {
+    try {
+      await axios.put(
+        `http://localhost:3001/api/recipe/update/${recipeToUpdate.id}`,
+        recipeToUpdate
+      );
+      dispatch({
+        type: UPDATE_RECIPE_FROM_DB,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
+function deleteRecipeFromDb(idRecipe) {
+  return async function (dispatch) {
+    try {
+      await axios.delete(`http://localhost:3001/api/recipe/delete/${idRecipe}`);
+      dispatch({
+        type: DELETE_RECIPE_FROM_DB,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+}
+
 module.exports = {
   getRecipes,
   searchRecipes,
@@ -139,4 +178,7 @@ module.exports = {
   filterByTypesOfDiets,
   sortRecipes,
   sortRecipesByScore,
+  filterByCreation,
+  updateRecipeFromDb,
+  deleteRecipeFromDb,
 };

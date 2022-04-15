@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypesOfDiets, postNewRecipe } from "../../redux/actions";
 import defaultImg from './../../images/noImageAvailable.png';
 import s from './Form.module.css';
-import { Link, useHistory } from "react-router-dom";
+import { Link, useHistory, useParams } from "react-router-dom";
 
 export default function Form() {
     const [input, setInput] = useState({
@@ -25,14 +25,30 @@ export default function Form() {
     const [stepCounter, setStepCounter] = useState(1);
     const [disabledButton, setDisabledButton] = useState(true);
 
+    const { idRecipe } = useParams();
+    const [idParams, setIdParams] = useState();
+    // console.log(idRecipe);
+
     useEffect(() => {
+        if(idRecipe) {
+            setIdParams(true);
+        } else {
+            setIdParams(false);
+        }
         if (input.title &&
             input.summary &&
             input.spoonacularScore &&
             input.healthScore &&
             input.diets.length &&
             stepList.length &&
-            !Object.keys(errors).length) {
+            // !Object.keys(errors).length
+            !errors.title &&
+            !errors.summary &&
+            !errors.spoonacularScore &&
+            !errors.healthScore &&
+            !errors.diets &&
+            !errors.steps
+        ) {
             setDisabledButton(false);
         } else {
             setDisabledButton(true);
@@ -50,10 +66,7 @@ export default function Form() {
         // title
         if (!state.title) {
             errors.title = "Title is required";
-            // } else if (!/^[\d]$/.test(state.title)) {
-            //   errors.title = "Title must be a string";
         } else if (!/^[a-zñá-ú\s]{6,}$/i.test(state.title)) {
-            // /^[a-zñ|A-ZÑ\s]{6,}$/
             errors.title = "Title must be a string of at least 6 characters long";
         }
         // image
@@ -64,7 +77,6 @@ export default function Form() {
         if (!state.summary) {
             errors.summary = "Summary is required";
         } else if (!/^[a-zñá-ú\s\d.,#!$%&;:{}=\-_`~()”“"…¿?¡']{10,}$/i.test(state.summary)) {
-            // /^[a-zñ|A-ZÑ\s\d]{10,}$/
             errors.summary = "Summary must be at least 10 characters long";
         }
         // spoonacularScore
@@ -93,15 +105,12 @@ export default function Form() {
     function handleOnChange(e) {
         e.preventDefault();
         setInput((prevState) => {
-            //creo mi nuevo estado.
             const newState = {
                 ...prevState,
                 [e.target.name]: e.target.value,
             };
-            //valido los errores de mi estado.
-            setErrors(validateForm(newState, stepList));
 
-            //devuelvo mi nuevo estado.
+            setErrors(validateForm(newState, stepList));
             return newState
         }
         );
@@ -147,10 +156,8 @@ export default function Form() {
     function deleteStep(e, numberStepToDelete) {
         e.preventDefault();
         let filteredSteps = stepList.filter(el => el.number !== numberStepToDelete);
-        //tengo que corregir el numero de los steps que quedan.
 
         for (let i = numberStepToDelete - 1; i < filteredSteps.length; i++) {
-            // filteredSteps[i].number = i + 1;
             filteredSteps[i].number--;
         }
 
@@ -182,7 +189,7 @@ export default function Form() {
                 input.image = defaultImg;
             }
             input.steps = stepList;
-            console.log('input', input);
+            // console.log('input', input);
             dispatch(postNewRecipe(input));
             alert("Recipe created succesfully!");
             history.push("/home");
@@ -204,7 +211,11 @@ export default function Form() {
     return (
         <div className={s.mainContainer}>
             <div className={s.formHeader}>
-                <h2 className={s.headerTitle}>Add a new recipe</h2>
+                {idParams ? (
+                    <h2 className={s.headerTitle}>Update a recipe</h2>
+                ) : (
+                    <h2 className={s.headerTitle}>Add a new recipe</h2>
+                )}
                 <Link to={"/home"} className={s.linkButton}>
                     <button className={s.button}>Home</button>
                 </Link>
@@ -300,8 +311,7 @@ export default function Form() {
                                             type="checkbox"
                                             onChange={handleOnCheck}
                                             name="diets"
-                                            // defaultValue={type.name} 
-                                            value={type.name}/>
+                                            value={type.name} />
                                         {type.name.toUpperCase()}</label>
                                 </div>
 
@@ -320,14 +330,13 @@ export default function Form() {
                             <p>Create your instructions</p>
                             <div className={s.addStepsGroup}>
                                 <input
-                                    /*className={errors.steps && s.inputDanger}*/
                                     type="text"
                                     onChange={handleOnChange}
                                     name="steps"
                                     placeholder="Enter steps.."
                                     className={s.inputForm}
-                                    value={input.steps} />
-                                {/* {errors.steps && <span className={s.dangerText}>{errors.steps}</span>} */}
+                                    value={input.steps}
+                                />
                                 <button
                                     onClick={addStep}
                                     className={s.stepButton}>Add</button>
@@ -354,7 +363,7 @@ export default function Form() {
                             type="submit"
                             disabled={disabledButton}
                             className={s.button}
-                            >
+                        >
                             Create </button>
                     </div>
                 </div>

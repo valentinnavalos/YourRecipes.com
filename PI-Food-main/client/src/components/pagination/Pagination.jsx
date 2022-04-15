@@ -7,10 +7,10 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
     const [disabledNextButton, setDisabledNextButton] = useState(false);
 
     function previousPageButton() {
-        if (currentPage > 1) {
+        if (parseInt(currentPage) > 1) {
             // console.log(currentPage)
             setDisabledPrevButton(false);
-            paginateFn(currentPage - 1);
+            paginateFn(parseInt(currentPage) - 1);
             if (disabledNextButton) {
                 setDisabledNextButton(false)
             }
@@ -20,9 +20,9 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
     }
 
     function nextPageButton() {
-        if (currentPage < pageNumbers.length) {
+        if (parseInt(currentPage) < pageNumbers.length) {
             // console.log(currentPage)
-            paginateFn(currentPage + 1);
+            paginateFn(parseInt(currentPage) + 1);
             setDisabledNextButton(false)
             if (disabledPrevButton) {
                 setDisabledPrevButton(false)
@@ -35,6 +35,7 @@ export default function Pagination({ lengthAllRecipes, paginateFn, itemsPerPage,
     function handleOnClick(e) {
         e.preventDefault();
         paginateFn(e.target.innerText);
+        // console.log(currentPage)
     }
 
     const pageNumbers = [];

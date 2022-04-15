@@ -46,7 +46,7 @@ const getApiInfoByPk = async (id) => {
       `https://api.spoonacular.com/recipes/${id}/information?apiKey=${apiKey}`
     );
 
-    const apiInfo = await apiUrl.data;
+    const apiInfo = apiUrl.data;
 
     let arrayDiets = [];
     arrayDiets = apiInfo.diets;
@@ -98,6 +98,9 @@ const getDbInfo = async () => {
 };
 
 const getDbInfoByPk = async (id) => {
+  //acá no hace falta el await porque estamos usando el return
+  //y el return ya viene con un await adentro que espera a que 
+  //se resuelva y recien ahí devuelve.
   return await Recipe.findByPk(id, {
     include: {
       model: Type,
@@ -124,6 +127,7 @@ const getAllInfo = async () => {
         steps: r.steps,
         image: r.image,
         diets: r.types.map((t) => t.name),
+        createdInDb: r.createdInDb,
       };
     });
 

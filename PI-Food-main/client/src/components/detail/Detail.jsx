@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useParams } from "react-router-dom";
-import { clearDetail, getRecipeDetail } from "../../redux/actions";
+import { Link, useHistory, useParams } from "react-router-dom";
+import { clearDetail, deleteRecipeFromDb, getRecipeDetail, updateRecipeFromDb } from "../../redux/actions";
 import s from "./Detail.module.css";
 
 export default function Detail() {
@@ -9,6 +9,7 @@ export default function Detail() {
     const { idRecipe } = useParams();
     const { recipeDetail } = useSelector(state => state);
     const dispatch = useDispatch();
+    const history = useHistory();
 
     const [loaded, setLoaded] = useState(false);
 
@@ -21,7 +22,24 @@ export default function Detail() {
             dispatch(clearDetail());
         }
     }, [dispatch, idRecipe]);
-    
+
+    function updateRecipe(e) {
+        e.preventDefault();
+        history.push(`/recipe/form/${idRecipe}`);
+        // dispatch(updateRecipeFromDb(idRecipe))
+        //intuyo que no hace falta dispatchar la accion de getRecipeDetail
+        //porque en el useEffect está escuchando el [dispatch], por lo que 
+        //cuando se actualice la receta, se actualizará la vista
+    }
+
+    function deleteRecipe(e) {
+        e.preventDefault();
+        //un alerta de si está segur@ de eliminar la receta
+        dispatch(deleteRecipeFromDb(idRecipe));
+        alert('The recipe has been deleted.');
+        history.push("/home");
+    }
+
     return (
         <div>
             {loaded ? (
@@ -38,7 +56,7 @@ export default function Detail() {
                             </div>
                             <div className={s.firstContainer}>
                                 <div className={s.imgContainer}>
-                                    <img src={recipeDetail.image} alt="No Image Available" className={s.imgContainer} />
+                                    <img src={recipeDetail.image} alt="No img available" className={s.imgContainer} />
                                 </div>
                                 <div className={s.scoresContainer}>
                                     {recipeDetail.spoonacularScore ? <p className={s.scoresText}>Spoonacular Score: {recipeDetail.spoonacularScore}</p> : <p>No score available.</p>}
@@ -74,6 +92,19 @@ export default function Detail() {
                                     }) : <p>There are no steps to show.</p>}
                                 </ol>
                             </div>
+                            {recipeDetail.createdInDb ?
+                                <div className={s.lastContainer}>
+                                    <div /*className={s.lastButtons}*/>
+                                        <Link to={'/recipe/update'} className={s.linkButton}>
+                                            <button onClick={updateRecipe} className={s.lastButtons}>Update recipe</button>
+                                        </Link>
+                                    </div>
+                                    <div /*className={s.lastButtons}*/>
+                                        <button onClick={deleteRecipe} className={s.lastButtons}>Delete recipe</button>
+                                    </div>
+                                </div>
+
+                                : null}
                         </div> : (<p className={s.loading}>Loading...</p>)}
                 </div>
             ) : (<span className={s.loading}>Loading...</span>)}

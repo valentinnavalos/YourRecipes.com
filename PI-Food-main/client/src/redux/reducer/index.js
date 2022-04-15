@@ -10,6 +10,9 @@ import {
   FILTER_BY_TYPE_OF_DIET,
   SORT,
   SORT_BY_SCORE,
+  FILTER_BY_CREATION,
+  UPDATE_RECIPE_FROM_DB,
+  DELETE_RECIPE_FROM_DB,
 } from "../actions/actionTypes";
 
 const initialState = {
@@ -21,6 +24,21 @@ const initialState = {
 
 export default function reducer(state = initialState, action) {
   switch (action.type) {
+    case FILTER_BY_CREATION: {
+      //payload => 'api' o 'db'
+
+      let arrayFiltered = [];
+      if (action.payload === "db") {
+        arrayFiltered = state.recipes?.filter((el) => el.createdInDb);
+      } else {
+        arrayFiltered = state.recipes?.filter((el) => !el.createdInDb);
+      }
+
+      return {
+        ...state,
+        filteredRecipes: arrayFiltered,
+      };
+    }
     case GET_RECIPES: {
       return {
         ...state,
@@ -59,7 +77,9 @@ export default function reducer(state = initialState, action) {
       };
     }
     case FILTER_BY_TYPE_OF_DIET: {
-      let filtered = state.recipes.filter((el) => el.diets.length? el.diets.includes(action.payload)? el : null: null);
+      let filtered = state.recipes.filter((el) =>
+        el.diets.length ? (el.diets.includes(action.payload) ? el : null) : null
+      );
       return {
         ...state,
         filteredRecipes: filtered,
@@ -69,17 +89,7 @@ export default function reducer(state = initialState, action) {
       let sorted = state.filteredRecipes.sort((a, b) => {
         if (a.title < b.title) return action.payload === ASCENDENTE ? -1 : 1;
         if (a.title > b.title) return action.payload === ASCENDENTE ? 1 : -1;
-        //arriba, no evaluamos si action.payload === 'desc' porque ya lo
-        //estamos haciendo con el ternario.
 
-        //si quisiesemos hacerlo con un if else, podriamos hacerlo asi:
-        // if (action.payload === 'asc') {
-        //   if (a.name < b.name) return -1;
-        //   if (a.name > b.name) return 1;
-        // } else {
-        //   if (a.name < b.name) return 1;
-        //   if (a.name > b.name) return -1;
-        // }
         return 0;
       });
       return {
@@ -88,15 +98,27 @@ export default function reducer(state = initialState, action) {
       };
     }
     case SORT_BY_SCORE: {
-      let sorted = state.filteredRecipes.sort((a,b) => {
-        if (a.spoonacularScore < b.spoonacularScore) return action.payload === LOWEST ? -1 : 1;
-        if (a.spoonacularScore > b.spoonacularScore) return action.payload === LOWEST ? 1 : -1;
+      let sorted = state.filteredRecipes.sort((a, b) => {
+        if (a.spoonacularScore < b.spoonacularScore)
+          return action.payload === LOWEST ? -1 : 1;
+        if (a.spoonacularScore > b.spoonacularScore)
+          return action.payload === LOWEST ? 1 : -1;
         return 0;
-      })
+      });
       return {
         ...state,
         filteredRecipes: sorted,
-      }
+      };
+    }
+    case UPDATE_RECIPE_FROM_DB: {
+      return {
+        ...state,
+      };
+    }
+    case DELETE_RECIPE_FROM_DB: {
+      return {
+        ...state,
+      };
     }
     default:
       return state;

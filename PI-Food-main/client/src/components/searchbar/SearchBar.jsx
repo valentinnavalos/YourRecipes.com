@@ -27,12 +27,8 @@ export default function SearchBar() {
             error = 'Please enter a search term.';
         }
         if (!/^[a-zñá-ú\s]+$/i.test(state)) {
-            // /^[a-zñ|A-ZÑ\s]+$/
             error = 'Please enter a valid string.';
         }
-        // if (!/^[A-ZÑ\s]$/i.test(state)) {
-        //     error = 'This field must be a string.';
-        // }
         // console.log(error);
         return error;
     }
@@ -55,7 +51,7 @@ export default function SearchBar() {
         e.preventDefault();
         setError(validateSearchBar(search));
         if (search && !error) {
-            console.log('handleOnSubmit', search);
+            // console.log('handleOnSubmit', search);
             // console.log('errorMsg', errorMsg);
             dispatch(searchRecipes(search));
             setSearch('');
@@ -81,7 +77,6 @@ export default function SearchBar() {
                     value="Search"
                     className={s.searchBarButton}
                 />
-                {/* {error && <span>{error}</span>} */}
             </form>
         </div>
     )
