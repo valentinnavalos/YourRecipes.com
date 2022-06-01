@@ -12,8 +12,7 @@ function App() {
         <Route exact path="/" component={LandingPage} />
         <Route exact path="/home" component={Home} />
         <Route exact path="/recipe/detail/:idRecipe" component={Detail} />
-        <Route path={"/recipe/form"} component={Form} />
-        {/* <Route exact path={'/recipe/update'} /> */}
+        <Route exact path={"/recipe/form"} component={Form} />
       </Switch>
     </div>
   );

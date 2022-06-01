@@ -1,13 +1,25 @@
-.ordersContainer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-    align-items: center;
-    width: 100%;
-    margin: 0 auto;
-    margin: 2rem;
+.ordersContainer {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 100%;
+  margin: 0 auto;
+  margin: 2rem;
 }
 
-span+span{
-    margin-left: 1rem;
+span + span {
+  margin-left: 1rem;
+}
+
+.orderSelect {
+  width: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
+.linkButton{
+  text-decoration: none;
 }

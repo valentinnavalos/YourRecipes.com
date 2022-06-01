@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { clearDetail, deleteRecipeFromDb, getRecipeDetail, updateRecipeFromDb } from "../../redux/actions";
+import { clearDetail, deleteRecipeFromDb, getRecipeDetail /*, updateRecipeFromDb*/ } from "../../redux/actions";
 import s from "./Detail.module.css";
 
 export default function Detail() {
@@ -23,14 +23,15 @@ export default function Detail() {
         }
     }, [dispatch, idRecipe]);
 
-    function updateRecipe(e) {
-        e.preventDefault();
-        history.push(`/recipe/form/${idRecipe}`);
-        // dispatch(updateRecipeFromDb(idRecipe))
-        //intuyo que no hace falta dispatchar la accion de getRecipeDetail
-        //porque en el useEffect está escuchando el [dispatch], por lo que 
-        //cuando se actualice la receta, se actualizará la vista
-    }
+    // function updateRecipe(e) {
+    //     e.preventDefault();
+    //     // history.push(`/recipe/updateForm/${idRecipe}`);
+    //     // dispatch(updateRecipeFromDb(idRecipe))
+    //     alert('This button is not working yet.')
+    //     //intuyo que no hace falta dispatchar la accion de getRecipeDetail
+    //     //porque en el useEffect está escuchando el [dispatch], por lo que 
+    //     //cuando se actualice la receta, se actualizará la vista
+    // }
 
     function deleteRecipe(e) {
         e.preventDefault();
@@ -94,17 +95,11 @@ export default function Detail() {
                             </div>
                             {recipeDetail.createdInDb ?
                                 <div className={s.lastContainer}>
-                                    <div /*className={s.lastButtons}*/>
-                                        <Link to={'/recipe/update'} className={s.linkButton}>
-                                            <button onClick={updateRecipe} className={s.lastButtons}>Update recipe</button>
-                                        </Link>
-                                    </div>
-                                    <div /*className={s.lastButtons}*/>
-                                        <button onClick={deleteRecipe} className={s.lastButtons}>Delete recipe</button>
-                                    </div>
+                                    <button onClick={deleteRecipe} className={s.lastButtons}>Delete recipe</button>
                                 </div>
-
                                 : null}
+
+
                         </div> : (<p className={s.loading}>Loading...</p>)}
                 </div>
             ) : (<span className={s.loading}>Loading...</span>)}

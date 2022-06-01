@@ -17,24 +17,24 @@ export default function NavBar() {
 
     return (
         <div className={s.navbar}>
-                <div className={s.imgContainer}>
-                    <Link to='/'>
-                        <img src={logo} alt="logo" className={s.logo} />
-                    </Link>
-                </div>
-                <div className={s.resetContainer}>
-                    <Link to="/" className={s.linkButton}>
-                        <button className={s.navbarButton} onClick={handleClick}>Reset page</button>
-                    </Link>
-                </div>
-                <div className={s.createContainer}>
-                    <Link to={'/recipe/form'} className={s.linkButton}>
-                        <button className={s.navbarButton}>Create new recipe</button>
-                    </Link>
-                </div>
-                <div className={s.searchBarCointainer}>
-                    <SearchBar />
-                </div>
+            <div className={s.imgContainer}>
+                <Link to='/'>
+                    <img src={logo} alt="logo" className={s.logo} />
+                </Link>
+            </div>
+            <div className={s.resetContainer}>
+                {/* <Link to="/home" className={s.linkButton}> */}
+                <button className={s.navbarButton} onClick={handleClick}>Reload page</button>
+                {/* </Link> */}
+            </div>
+            <div className={s.createContainer}>
+                <Link to={'/recipe/form'} className={s.linkButton}>
+                    <button className={s.navbarButton}>Create new recipe</button>
+                </Link>
+            </div>
+            <div className={s.searchBarCointainer}>
+                <SearchBar />
+            </div>
         </div>
     )
 }

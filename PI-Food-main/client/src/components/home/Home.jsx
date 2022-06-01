@@ -66,8 +66,10 @@ export default function Home() {
 
                 </div>
             ) : (
+                // <div className={s.spinner}>
                 <span className={s.loading}>Loading...</span>
-            )})
+                // </div>
+            )}
         </div>
     )
 }

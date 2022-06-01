@@ -46,11 +46,13 @@
   cursor: pointer;
   padding: 0.5rem;
   /* box-shadow: 0 0 20px 15px rgb(139 136 89 / 33%); */
+  transition: 0.4s;
 }
 
 .navbarButton:hover {
   transition: 0.4s;
-  box-shadow: 0 0 20px 15px rgb(139 136 89 / 45%);
+  box-shadow: 0 0 20px 15px rgb(139 136 89 / 15%);
+  transform: scale(1.1);
 }
 
 .linkButton{

@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getTypesOfDiets, postNewRecipe } from "../../redux/actions";
 import defaultImg from './../../images/noImageAvailable.png';
 import s from './Form.module.css';
-import { Link, useHistory, useParams } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 export default function Form() {
     const [input, setInput] = useState({
@@ -25,16 +25,40 @@ export default function Form() {
     const [stepCounter, setStepCounter] = useState(1);
     const [disabledButton, setDisabledButton] = useState(true);
 
-    const { idRecipe } = useParams();
-    const [idParams, setIdParams] = useState();
-    // console.log(idRecipe);
+    // const { idRecipe } = useParams();
+    // const { recipeDetail } = useSelector(state => state);
+    // const [detailLoaded, setDetailLoaded] = useState(false);
+    // const [dispatchGetDiets, setDispatchGetDiets] = useState(false);
+    // const [updateMode, setUpdateMode] = useState(false);
+
+    // function loadData() {
+    //     //carga y trae la data de la recipe a editar
+    //     if (!detailLoaded) {
+    //         dispatch(getRecipeDetail(idRecipe));
+    //         setDetailLoaded(true);
+    //     }
+
+    //     const stepsListDb = [];
+    //     recipeDetail.steps?.forEach((step, index) => {
+    //         stepsListDb.push({
+    //             number: index,
+    //             step: step,
+    //         });
+    //         stepCounter(index);
+    //     })
+
+    //     setInput({
+    //         title: recipeDetail.title,
+    //         image: recipeDetail.image,
+    //         summary: recipeDetail.summary,
+    //         spoonacularScore: recipeDetail.spoonacularScore,
+    //         healthScore: recipeDetail.healthScore,
+    //         diets: [],
+    //     })
+    //     setStepList(stepsListDb);
+    // }
 
     useEffect(() => {
-        if(idRecipe) {
-            setIdParams(true);
-        } else {
-            setIdParams(false);
-        }
         if (input.title &&
             input.summary &&
             input.spoonacularScore &&
@@ -58,19 +82,24 @@ export default function Form() {
     useEffect(() => {
         if (!typesOfDiets.length) {
             dispatch(getTypesOfDiets());
+            // setDispatchGetDiets(true);
         }
-    }, [dispatch, typesOfDiets.length]);
+        // if (idRecipe && !updateMode) {
+        //     loadData();
+        //     setUpdateMode(true);
+        // }
+    }, [dispatch, typesOfDiets.length /*, updateMode*/]);
 
     function validateForm(state) {
         const errors = {};
         // title
         if (!state.title) {
             errors.title = "Title is required";
-        } else if (!/^[a-zñá-ú\s]{6,}$/i.test(state.title)) {
+        } else if (!/^[a-zñá-ú\s']{6,}$/i.test(state.title)) {
             errors.title = "Title must be a string of at least 6 characters long";
         }
         // image
-        if (state.image && !/(http(s?):)([/|.|\w|\s|%-])*\.(?:jpg|gif|png)/i.test(state.image)) {
+        if (state.image && !/(http(s?):)([/|.|\w|\s|%-?¿&])*\.(?:jpg|gif|png)/i.test(state.image)) {
             errors.image = "It must be a valid image URL";
         }
         // summary
@@ -103,7 +132,7 @@ export default function Form() {
     }
 
     function handleOnChange(e) {
-        e.preventDefault();
+        // e.preventDefault();
         setInput((prevState) => {
             const newState = {
                 ...prevState,
@@ -189,10 +218,15 @@ export default function Form() {
                 input.image = defaultImg;
             }
             input.steps = stepList;
-            // console.log('input', input);
+            // if (updateMode) {
+            //     dispatch(updateRecipeFromDb(input))
+            //     alert('Recipe updated succesfully!')
+            //     history.push(`/recipe/detail/${idRecipe}`)
+            // } else {
             dispatch(postNewRecipe(input));
             alert("Recipe created succesfully!");
             history.push("/home");
+            // }
         } else {
             alert("Please complete all fields correctly!");
         }
@@ -211,11 +245,7 @@ export default function Form() {
     return (
         <div className={s.mainContainer}>
             <div className={s.formHeader}>
-                {idParams ? (
-                    <h2 className={s.headerTitle}>Update a recipe</h2>
-                ) : (
-                    <h2 className={s.headerTitle}>Add a new recipe</h2>
-                )}
+                <h2 className={s.headerTitle}>Add a new recipe</h2>
                 <Link to={"/home"} className={s.linkButton}>
                     <button className={s.button}>Home</button>
                 </Link>
@@ -232,7 +262,7 @@ export default function Form() {
                                 onChange={handleOnChange}
                                 name="title"
                                 placeholder="Enter a title.."
-                                defaultValue={input.title} />
+                                value={input.title} />
                         </div>
                         {errors.title && <span className={s.dangerText}>{errors.title}</span>}
                     </div>
@@ -250,46 +280,54 @@ export default function Form() {
                         </div>
                         {errors.image && <span className={s.dangerText}>{errors.image}</span>}
                     </div>
+                </div>
+                <div className={s.summaryContainer}>
                     <div className={s.simpleInputs}>
                         <label className={s.labelText} htmlFor="summary">Summary </label>
                         <div className={s.inputDiv}>
                             <input
-                                className={s.inputForm}
+                                className={s.textAreaForm}
                                 type="text"
                                 onChange={handleOnChange}
                                 name="summary"
                                 placeholder="Enter a summary.."
-                                defaultValue={input.summary} />
+                                value={input.summary} />
                         </div>
                         {errors.summary && <span className={s.dangerText}>{errors.summary}</span>}
                     </div>
+                </div>
+
+                <div className={s.firstContainer}>
                     <div className={s.simpleInputs}>
                         <label className={s.labelText} htmlFor="spoonacularScore">Spoonacular Score </label>
-                        <div className={s.inputDiv}>
+                        <div className={s.rangeDiv}/*className={s.inputDiv}*/>
                             <input
-                                className={s.inputForm}
+                                className={s.rangeForm}
                                 type='range'
                                 min={'0'}
                                 max={'100'}
                                 onChange={handleOnChange}
                                 name="spoonacularScore"
                                 placeholder="Enter a score.."
-                                defaultValue={input.spoonacularScore} />
+                                value={input.spoonacularScore} />
+                            {/* {input.spoonacularScore} */}
+                            <span className={s.rangeSpan}>{input.spoonacularScore}</span>
                         </div>
                         {errors.spoonacularScore && <span className={s.dangerText}>{errors.spoonacularScore}</span>}
                     </div>
                     <div className={s.simpleInputs}>
                         <label className={s.labelText} htmlFor="healthScore">Health Score </label>
-                        <div className={s.inputDiv}>
+                        <div className={s.rangeDiv}>
                             <input
-                                className={s.inputForm}
+                                className={s.rangeForm}
                                 type='range'
                                 min={'0'}
                                 max={'100'}
                                 onChange={handleOnChange}
                                 name="healthScore"
                                 placeholder="Enter a health score.."
-                                defaultValue={input.healthScore} />
+                                value={input.healthScore} />
+                            <span className={s.rangeSpan}>{input.healthScore}</span>
                         </div>
                         {errors.healthScore && <span className={s.dangerText}>{errors.healthScore}</span>}
                     </div>

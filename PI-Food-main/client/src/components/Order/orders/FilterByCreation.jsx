@@ -14,8 +14,8 @@ export default function FilterByCreation() {
         <div>
             <select onChange={handleOnChange} className={s.orderSelect}>
                 <option value={''}>Filter by creation</option>
-                <option value={'api'}>By Api</option>
-                <option value={'db'}>By database</option>
+                <option value={'api'}>From api</option>
+                <option value={'db'}>From database</option>
             </select>
         </div>
     )

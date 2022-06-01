@@ -67,21 +67,29 @@
 
 .firstContainer {
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr;
   /* gap: 20px; */
   gap: 1rem;
 }
 
+.summaryContainer{
+  margin-top: 10px;
+  margin-bottom: 3px;
+}
+
 .simpleInputs {
   text-align: left;
+  justify-content: center;
+  align-items: center;
 }
 
 .labelText {
   display: block;
   font-size: 19px;
   padding: 5px;
+  padding-bottom: 3px;
   min-height: 30px;
-  margin: 10px 0 0 0;
+  margin: 14px 0 0 0;
 }
 
 .inputForm {
@@ -98,6 +106,59 @@
   color: rgba(233, 195, 182, 0.55);
   padding: 0 10px 0 10px;
 }
+
+.textAreaForm{
+  width: 93%;
+  height: 55px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.25),
+    rgba(43, 9, 4, 0.25)
+  );
+  border: 2px solid rgba(233, 195, 182, 0.55);
+  font-size: 1.3rem;
+  color: rgba(233, 195, 182, 0.55);
+  padding: 0 10px 0 10px;
+}
+
+/* .rangeInput{
+  max-width: 200px;
+} */
+
+.rangeDiv{
+  display: flex;
+  align-items: center;
+}
+
+.rangeSpan{
+  /* width: fit-content; */
+  margin: 2px;
+  padding: 3px;
+  height: 25px;
+}
+
+.rangeForm{
+  width: 70%;
+  /* max-width: 250px; */
+  height: 25px;
+  border-radius: 3px;
+  background: linear-gradient(
+    to left,
+    rgba(210, 73, 54, 0.25),
+    rgba(43, 9, 4, 0.25)
+  );
+  border: 2px solid rgba(233, 195, 182, 0.55);
+  font-size: 1.3rem;
+  color: rgba(233, 195, 182, 0.55);
+  padding: 0 10px 0 10px;
+}
+
+
+/* .inputRangeDiv{
+  align-items: center;
+  justify-content: center;
+} */
 
 .dangerText {
   color: red;
@@ -124,9 +185,11 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   row-gap: 20px;
+  column-gap: 17px;
   border-radius: 5px;
   padding: 20px 10px 20px 10px;
   margin: 0px 15px 5px 15px;
+  width: 660px;
 }
 
 .checkboxElement {
