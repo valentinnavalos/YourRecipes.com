@@ -21,7 +21,6 @@ function getRecipes() {
   return async function (dispatch) {
     try {
       let response = await axios.get("http://localhost:3001/api/recipes/all");
-      // console.log("getRecipes", response);
       dispatch({
         type: GET_RECIPES,
         payload: response.data,
@@ -38,7 +37,6 @@ function searchRecipes(name) {
       let response = await axios.get(
         `http://localhost:3001/api/recipes?name=${name}`
       );
-      // console.log("searchRecipes", response.data);
 
       dispatch({
         type: SEARCH_RECIPES,
@@ -59,7 +57,6 @@ function getRecipeDetail(id) {
     try {
       let response = await axios.get(`http://localhost:3001/api/recipes/${id}`);
 
-      // console.log(response.data);
       dispatch({
         type: GET_RECIPE_DETAIL,
         payload: response.data,
@@ -81,12 +78,10 @@ function clearDetail() {
 function postNewRecipe(recipe) {
   return async function (dispatch) {
     try {
-      // console.log(recipe);
       let response = await axios.post(
         "http://localhost:3001/api/recipe",
         recipe
       );
-      // console.log(response);
       dispatch({
         type: POST_NEW_RECIPE,
         payload: response.data,

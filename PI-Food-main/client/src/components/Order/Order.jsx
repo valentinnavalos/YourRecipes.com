@@ -23,11 +23,11 @@ export default function Order() {
                 //     e.target.value = '';
                 //     return setReseted(false);
                 // } else {
-                    if (!e.target.value) return dispatch(getRecipes());
-                    else {
-                        // setReseted(false);
-                        return dispatch(sortRecipes(e.target.value));
-                    }
+                if (!e.target.value) return dispatch(getRecipes());
+                else {
+                    // setReseted(false);
+                    return dispatch(sortRecipes(e.target.value));
+                }
                 // }
             }
             case 'orderScore': {
@@ -71,7 +71,6 @@ export default function Order() {
             {/* <div>
                 <button onClick={handleReset}>Reset all</button>
             </div> */}
-            {/* <div className={s.orderContainer}> */}
             <span className={s.eachOrder}>
                 {/* <OrderAZ /> */}
                 <select name="orderName" onChange={handleOnChange} className={s.orderSelect}>
@@ -105,7 +104,6 @@ export default function Order() {
                     <option value={'db'} >From database</option>
                 </select>
             </span>
-            {/* </div> */}
         </div>
     )
 }

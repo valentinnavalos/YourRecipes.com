@@ -13,10 +13,8 @@ export default function SearchBar() {
 
     useEffect(() => {
         if (search && !error) {
-            // console.log('habilitado')
             setButtonDisabled(false);
         } else {
-            // console.log('desabilitado')
             setButtonDisabled(true);
         }
     }, [search, error]);
@@ -29,7 +27,6 @@ export default function SearchBar() {
         if (!/^[a-zñá-ú\s]+$/i.test(state)) {
             error = 'Please enter a valid string.';
         }
-        // console.log(error);
         return error;
     }
 
@@ -44,19 +41,15 @@ export default function SearchBar() {
 
             return handler;
         });
-        // console.log('handleOnChange', error);
     }
 
     function handleOnSubmit(e) {
         e.preventDefault();
         setError(validateSearchBar(search));
         if (search && !error) {
-            // console.log('handleOnSubmit', search);
-            // console.log('errorMsg', errorMsg);
             dispatch(searchRecipes(search));
             setSearch('');
         } else {
-            // console.log('error', error);
             alert(error);
         }
     }

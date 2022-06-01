@@ -23,9 +23,7 @@ export default function NavBar() {
                 </Link>
             </div>
             <div className={s.resetContainer}>
-                {/* <Link to="/home" className={s.linkButton}> */}
                 <button className={s.navbarButton} onClick={handleClick}>Reload page</button>
-                {/* </Link> */}
             </div>
             <div className={s.createContainer}>
                 <Link to={'/recipe/form'} className={s.linkButton}>
