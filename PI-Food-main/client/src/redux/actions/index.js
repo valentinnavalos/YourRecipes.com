@@ -1,4 +1,5 @@
 const { default: axios } = require("axios");
+const { SERVER_BACK } = require("../../../paths/path");
 const {
   GET_RECIPES,
   SEARCH_RECIPES,
@@ -20,7 +21,7 @@ const {
 function getRecipes() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3001/api/recipes/all");
+      let response = await axios.get(`${SERVER_BACK}/recipes/all`);
       dispatch({
         type: GET_RECIPES,
         payload: response.data,
@@ -34,9 +35,7 @@ function getRecipes() {
 function searchRecipes(name) {
   return async function (dispatch) {
     try {
-      let response = await axios.get(
-        `http://localhost:3001/api/recipes?name=${name}`
-      );
+      let response = await axios.get(`${SERVER_BACK}/recipes?name=${name}`);
 
       dispatch({
         type: SEARCH_RECIPES,
@@ -55,7 +54,7 @@ function searchRecipes(name) {
 function getRecipeDetail(id) {
   return async function (dispatch) {
     try {
-      let response = await axios.get(`http://localhost:3001/api/recipes/${id}`);
+      let response = await axios.get(`${SERVER_BACK}/recipes/${id}`);
 
       dispatch({
         type: GET_RECIPE_DETAIL,
@@ -78,10 +77,7 @@ function clearDetail() {
 function postNewRecipe(recipe) {
   return async function (dispatch) {
     try {
-      let response = await axios.post(
-        "http://localhost:3001/api/recipe",
-        recipe
-      );
+      let response = await axios.post(`${SERVER_BACK}/recipe`, recipe);
       dispatch({
         type: POST_NEW_RECIPE,
         payload: response.data,
@@ -95,7 +91,7 @@ function postNewRecipe(recipe) {
 function getTypesOfDiets() {
   return async function (dispatch) {
     try {
-      let response = await axios.get("http://localhost:3001/api/types");
+      let response = await axios.get(`${SERVER_BACK}/types`);
       dispatch({
         type: GET_TYPES_OF_DIETS,
         payload: response.data,
@@ -138,7 +134,7 @@ function updateRecipeFromDb(recipeToUpdate) {
   return async function (dispatch) {
     try {
       await axios.put(
-        `http://localhost:3001/api/recipe/update/${recipeToUpdate.id}`,
+        `${SERVER_BACK}/recipe/update/${recipeToUpdate.id}`,
         recipeToUpdate
       );
       dispatch({
@@ -153,7 +149,7 @@ function updateRecipeFromDb(recipeToUpdate) {
 function deleteRecipeFromDb(idRecipe) {
   return async function (dispatch) {
     try {
-      await axios.delete(`http://localhost:3001/api/recipe/delete/${idRecipe}`);
+      await axios.delete(`${SERVER_BACK}/recipe/delete/${idRecipe}`);
       dispatch({
         type: DELETE_RECIPE_FROM_DB,
       });
