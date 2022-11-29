@@ -25,39 +25,6 @@ export default function Form() {
     const [stepCounter, setStepCounter] = useState(1);
     const [disabledButton, setDisabledButton] = useState(true);
 
-    // const { idRecipe } = useParams();
-    // const { recipeDetail } = useSelector(state => state);
-    // const [detailLoaded, setDetailLoaded] = useState(false);
-    // const [dispatchGetDiets, setDispatchGetDiets] = useState(false);
-    // const [updateMode, setUpdateMode] = useState(false);
-
-    // function loadData() {
-    //     //carga y trae la data de la recipe a editar
-    //     if (!detailLoaded) {
-    //         dispatch(getRecipeDetail(idRecipe));
-    //         setDetailLoaded(true);
-    //     }
-
-    //     const stepsListDb = [];
-    //     recipeDetail.steps?.forEach((step, index) => {
-    //         stepsListDb.push({
-    //             number: index,
-    //             step: step,
-    //         });
-    //         stepCounter(index);
-    //     })
-
-    //     setInput({
-    //         title: recipeDetail.title,
-    //         image: recipeDetail.image,
-    //         summary: recipeDetail.summary,
-    //         spoonacularScore: recipeDetail.spoonacularScore,
-    //         healthScore: recipeDetail.healthScore,
-    //         diets: [],
-    //     })
-    //     setStepList(stepsListDb);
-    // }
-
     useEffect(() => {
         if (input.title &&
             input.summary &&
@@ -65,7 +32,6 @@ export default function Form() {
             input.healthScore &&
             input.diets.length &&
             stepList.length &&
-            // !Object.keys(errors).length
             !errors.title &&
             !errors.summary &&
             !errors.spoonacularScore &&
@@ -82,13 +48,8 @@ export default function Form() {
     useEffect(() => {
         if (!typesOfDiets.length) {
             dispatch(getTypesOfDiets());
-            // setDispatchGetDiets(true);
         }
-        // if (idRecipe && !updateMode) {
-        //     loadData();
-        //     setUpdateMode(true);
-        // }
-    }, [dispatch, typesOfDiets.length /*, updateMode*/]);
+    }, [dispatch, typesOfDiets.length]);
 
     function validateForm(state) {
         const errors = {};
@@ -132,7 +93,6 @@ export default function Form() {
     }
 
     function handleOnChange(e) {
-        // e.preventDefault();
         setInput((prevState) => {
             const newState = {
                 ...prevState,
@@ -197,8 +157,6 @@ export default function Form() {
     function handleOnSubmit(e) {
         e.preventDefault();
         setErrors(validateForm(input, stepList));
-        // console.log('errors', errors);
-        // console.log('input', input);
         if (
             input.title &&
             input.summary &&
@@ -206,7 +164,6 @@ export default function Form() {
             input.healthScore &&
             input.diets.length &&
             stepList.length &&
-            // !Object.keys(errors).length
             !errors.title &&
             !errors.summary &&
             !errors.spoonacularScore &&
@@ -218,15 +175,9 @@ export default function Form() {
                 input.image = defaultImg;
             }
             input.steps = stepList;
-            // if (updateMode) {
-            //     dispatch(updateRecipeFromDb(input))
-            //     alert('Recipe updated succesfully!')
-            //     history.push(`/recipe/detail/${idRecipe}`)
-            // } else {
             dispatch(postNewRecipe(input));
             alert("Recipe created succesfully!");
             history.push("/home");
-            // }
         } else {
             alert("Please complete all fields correctly!");
         }

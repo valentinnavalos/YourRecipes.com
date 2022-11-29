@@ -1,5 +1,5 @@
-import { ASCENDENTE } from "../../components/order/constants/sort";
-import { LOWEST } from "../../components/order/constants/sortByScore";
+import { ASCENDENTE } from "../../components/Order/constants/sort";
+import { LOWEST } from "../../components/Order/constants/sortByScore";
 import {
   GET_RECIPES,
   SEARCH_RECIPES,
@@ -25,8 +25,6 @@ const initialState = {
 export default function reducer(state = initialState, action) {
   switch (action.type) {
     case FILTER_BY_CREATION: {
-      //payload => 'api' o 'db'
-
       let arrayFiltered = [];
       if (action.payload === "db") {
         arrayFiltered = state.recipes?.filter((el) => el.createdInDb);

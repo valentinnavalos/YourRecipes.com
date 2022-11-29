@@ -3,7 +3,7 @@ import "./App.css";
 import Detail from "./components/detail/Detail";
 import Home from "./components/home/Home";
 import LandingPage from "./components/landingpage/LandingPage";
-import Form from "./components/form/Form";
+import Form from './components/Form/Form';
 
 function App() {
   return (
