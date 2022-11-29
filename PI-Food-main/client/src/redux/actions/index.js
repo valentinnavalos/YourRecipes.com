@@ -1,5 +1,5 @@
 const { default: axios } = require("axios");
-const { SERVER_BACK } = require("../../../paths/path");
+const { SERVER_BACK } = require("../../constants/apiUrl");
 const {
   GET_RECIPES,
   SEARCH_RECIPES,
@@ -14,9 +14,6 @@ const {
   UPDATE_RECIPE_FROM_DB,
   DELETE_RECIPE_FROM_DB,
 } = require("./actionTypes");
-// require("dotenv").config();
-
-// const { HOST, PORT } = process.env;
 
 function getRecipes() {
   return async function (dispatch) {

@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useHistory, useParams } from "react-router-dom";
-import { clearDetail, deleteRecipeFromDb, getRecipeDetail /*, updateRecipeFromDb*/ } from "../../redux/actions";
+import { clearDetail, deleteRecipeFromDb, getRecipeDetail } from "../../redux/actions";
 import s from "./Detail.module.css";
 
 export default function Detail() {
@@ -23,19 +23,9 @@ export default function Detail() {
         }
     }, [dispatch, idRecipe]);
 
-    // function updateRecipe(e) {
-    //     e.preventDefault();
-    //     // history.push(`/recipe/updateForm/${idRecipe}`);
-    //     // dispatch(updateRecipeFromDb(idRecipe))
-    //     alert('This button is not working yet.')
-    //     //intuyo que no hace falta dispatchar la accion de getRecipeDetail
-    //     //porque en el useEffect está escuchando el [dispatch], por lo que 
-    //     //cuando se actualice la receta, se actualizará la vista
-    // }
-
     function deleteRecipe(e) {
         e.preventDefault();
-        //un alerta de si está segur@ de eliminar la receta
+        //falta un alerta de si está segur@ de eliminar la receta
         dispatch(deleteRecipeFromDb(idRecipe));
         alert('The recipe has been deleted.');
         history.push("/home");

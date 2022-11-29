@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getRecipes, getTypesOfDiets } from "../../redux/actions";
 import Cards from "../cards/Cards";
 import NavBar from "../navbar/NavBar";
-import Order from "../order/Order";
+import Order from "../Order/Order";
 import Pagination from "../pagination/Pagination";
 import s from "./Home.module.css";
 
